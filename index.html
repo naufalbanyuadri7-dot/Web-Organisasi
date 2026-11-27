@@ -1,0 +1,2419 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dewan Perwakilan Mahasiswa KM UNY — Portal Resmi Parlemen Mahasiswa</title>
+
+  <!-- Google Fonts: Newsreader (Serif Parlemen) & Plus Jakarta Sans (UI Modern) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN & Konfigurasi Design Tokens Parlemen -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            maroon: {
+              950: '#1E0A0E',
+              900: '#3F0C15',
+              800: '#56131F',
+              700: '#6E1A28',
+              600: '#852333',
+              50: '#F5E9EB',
+            },
+            gold: {
+              700: '#8A6420',
+              500: '#C59B43',
+              400: '#D9B36C',
+              100: '#FBF3E0',
+            },
+            cream: {
+              50: '#FAF8F5',
+              100: '#F7F4F0',
+              200: '#EEE9E3',
+              300: '#E4DED7',
+              400: '#CDBFB6',
+            },
+            ink: {
+              900: '#16110F',
+              700: '#3D3532',
+              500: '#6B625C',
+            }
+          },
+          fontFamily: {
+            serif: ['Newsreader', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          boxShadow: {
+            'card': '0 1px 3px rgba(22, 17, 15, 0.05), 0 8px 24px -12px rgba(63, 12, 21, 0.08)',
+            'float': '0 12px 32px -8px rgba(30, 10, 14, 0.14), 0 2px 6px rgba(30, 10, 14, 0.06)',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Utilitas minor untuk menyembunyikan scrollbar horizontal pada tab mobile & pola halus hero */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .hero-pattern {
+      background-image: radial-gradient(rgba(217, 179, 108, 0.16) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+  </style>
+</head>
+
+<body class="bg-cream-100 text-ink-900 font-sans antialiased overflow-x-hidden selection:bg-maroon-700 selection:text-white">
+
+  <!-- =====================================================================
+       1. TOP UTILITY BAR & STICKY HEADER RESPONSIF (ALA PORTAL DPR RI)
+       ===================================================================== -->
+  <div class="bg-maroon-900 text-[#EADCDD] text-xs sm:text-[13px] border-b border-white/10">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 min-h-[40px] py-1.5 flex flex-wrap items-center justify-between gap-x-6 gap-y-1">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-gold-400 shrink-0" aria-hidden="true"></span>
+        <span class="font-medium tracking-wide">Portal resmi Dewan Perwakilan Mahasiswa Keluarga Mahasiswa UNY</span>
+      </div>
+      <nav aria-label="Tautan utilitas" class="flex items-center gap-4 sm:gap-5">
+        <button type="button" onclick="openModal('ppidModal')" class="hover:text-gold-400 transition-colors py-1 cursor-pointer">Informasi Publik</button>
+        <a href="#kontak" class="hover:text-gold-400 transition-colors py-1">Kontak</a>
+        <button type="button" onclick="openModal('loginModal')" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/20 text-white font-semibold transition-colors cursor-pointer">
+          <svg class="w-3.5 h-3.5 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+            <polyline points="10 17 15 12 10 7"/>
+            <line x1="15" y1="12" x2="3" y2="12"/>
+          </svg>
+          <span>Masuk Pengurus</span>
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Sticky Header Utama -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-cream-300 shadow-sm">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-3.5 flex items-center justify-between gap-4">
+      <!-- Emblem Logo SVG Parlemen DPM KM UNY -->
+      <a href="#beranda" class="flex items-center gap-3 sm:gap-3.5 group min-w-0">
+        <div class="w-11 h-11 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-maroon-900 flex items-center justify-center p-1.5 ring-2 ring-gold-400/50 group-hover:ring-gold-400 transition-all shadow-sm" title="Logo DPM KM UNY (dapat diganti file gambar sendiri)">
+          <svg viewBox="0 0 64 64" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Emblem Parlemen DPM KM UNY">
+            <!-- Bingkai Perisai Parlemen -->
+            <path d="M32 4L54 12V30C54 44.5 44.5 55.2 32 60C19.5 55.2 10 44.5 10 30V12L32 4Z" fill="#3F0C15" stroke="#D9B36C" stroke-width="2.5"/>
+            <!-- Bintang Integritas -->
+            <path d="M32 12L34.1 16.5L39 17.1L35.4 20.5L36.3 25.4L32 23L27.7 25.4L28.6 20.5L25 17.1L29.9 16.5L32 12Z" fill="#D9B36C"/>
+            <!-- 3 Pilar Legislatif (Perwakilan, Legislasi, Pengawasan) -->
+            <rect x="20" y="30" width="4.5" height="16" rx="1" fill="#F7F4F0"/>
+            <rect x="29.75" y="28" width="4.5" height="18" rx="1" fill="#D9B36C"/>
+            <rect x="39.5" y="30" width="4.5" height="16" rx="1" fill="#F7F4F0"/>
+            <!-- Alas Pilar -->
+            <rect x="17" y="47" width="30" height="3.2" rx="1.5" fill="#D9B36C"/>
+          </svg>
+        </div>
+        <div class="flex flex-col min-w-0">
+          <span class="font-serif text-lg sm:text-[21px] font-semibold leading-tight text-ink-900 truncate">Dewan Perwakilan Mahasiswa</span>
+          <span class="text-[10.5px] sm:text-xs font-bold tracking-[0.12em] uppercase text-gold-700 truncate">Keluarga Mahasiswa UNY</span>
+        </div>
+      </a>
+
+      <!-- Navigasi Desktop -->
+      <nav aria-label="Navigasi utama" class="hidden lg:flex items-center gap-1">
+        <a href="#profil" class="px-3 py-2.5 rounded-lg text-[14.5px] font-semibold text-ink-700 hover:text-maroon-700 hover:bg-maroon-50/70 transition-colors">Profil</a>
+        <a href="#struktur" class="px-3 py-2.5 rounded-lg text-[14.5px] font-semibold text-ink-700 hover:text-maroon-700 hover:bg-maroon-50/70 transition-colors">Struktur</a>
+        <a href="#legislasi" class="px-3 py-2.5 rounded-lg text-[14.5px] font-semibold text-ink-700 hover:text-maroon-700 hover:bg-maroon-50/70 transition-colors">Legislasi</a>
+        <a href="#aspirasi" class="px-3 py-2.5 rounded-lg text-[14.5px] font-semibold text-ink-700 hover:text-maroon-700 hover:bg-maroon-50/70 transition-colors">Aspirasi</a>
+        <a href="#publikasi" class="px-3 py-2.5 rounded-lg text-[14.5px] font-semibold text-ink-700 hover:text-maroon-700 hover:bg-maroon-50/70 transition-colors">Publikasi</a>
+        <a href="#dokumen" class="px-3 py-2.5 rounded-lg text-[14.5px] font-semibold text-ink-700 hover:text-maroon-700 hover:bg-maroon-50/70 transition-colors">Dokumen</a>
+
+        <button type="button" onclick="openSearchModal()" aria-label="Cari di portal" class="w-11 h-11 ml-1 rounded-lg border border-cream-300 bg-white hover:border-maroon-700 hover:text-maroon-700 text-ink-700 inline-flex items-center justify-center transition-colors cursor-pointer">
+          <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="M20 20l-4-4"></path>
+          </svg>
+        </button>
+
+        <button type="button" onclick="openModal('aspirasiModal')" class="inline-flex items-center gap-2 min-h-[44px] ml-2 px-4 rounded-lg bg-maroon-700 hover:bg-maroon-900 text-white text-sm font-bold shadow-sm transition-colors cursor-pointer">
+          <span>Sampaikan Aspirasi</span>
+        </button>
+      </nav>
+
+      <!-- Tombol Aksi Mobile (Cari & Hamburger) -->
+      <div class="flex lg:hidden items-center gap-2 shrink-0">
+        <button type="button" onclick="openSearchModal()" aria-label="Cari" class="w-11 h-11 rounded-lg border border-cream-300 bg-white text-ink-700 inline-flex items-center justify-center active:bg-cream-100">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="M20 20l-4-4"></path>
+          </svg>
+        </button>
+        <button type="button" id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Buka menu navigasi" aria-expanded="false" class="w-11 h-11 rounded-lg bg-maroon-900 text-white inline-flex items-center justify-center active:bg-maroon-700">
+          <svg id="hamburgerIcon" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <svg id="closeMenuIcon" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Drawer Navigasi Mobile -->
+    <div id="mobileMenu" class="hidden lg:hidden bg-white border-t border-cream-300 shadow-lg">
+      <div class="max-w-[1240px] mx-auto px-4 py-4 flex flex-col gap-1">
+        <a href="#profil" onclick="closeMobileMenu()" class="px-3.5 py-3 rounded-lg text-[15px] font-semibold text-ink-900 hover:bg-maroon-50 hover:text-maroon-700">01 · Profil</a>
+        <a href="#struktur" onclick="closeMobileMenu()" class="px-3.5 py-3 rounded-lg text-[15px] font-semibold text-ink-900 hover:bg-maroon-50 hover:text-maroon-700">02 · Struktur &amp; AKD</a>
+        <a href="#legislasi" onclick="closeMobileMenu()" class="px-3.5 py-3 rounded-lg text-[15px] font-semibold text-ink-900 hover:bg-maroon-50 hover:text-maroon-700">03 · Legislasi (PKM)</a>
+        <a href="#aspirasi" onclick="closeMobileMenu()" class="px-3.5 py-3 rounded-lg text-[15px] font-semibold text-ink-900 hover:bg-maroon-50 hover:text-maroon-700">04 · Aspirasi &amp; Lacak Tiket</a>
+        <a href="#publikasi" onclick="closeMobileMenu()" class="px-3.5 py-3 rounded-lg text-[15px] font-semibold text-ink-900 hover:bg-maroon-50 hover:text-maroon-700">05 · Publikasi &amp; Agenda</a>
+        <a href="#dokumen" onclick="closeMobileMenu()" class="px-3.5 py-3 rounded-lg text-[15px] font-semibold text-ink-900 hover:bg-maroon-50 hover:text-maroon-700">06 · Dokumen (JDIH KM)</a>
+        <div class="pt-3 mt-2 border-t border-cream-200 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <button type="button" onclick="closeMobileMenu(); openModal('aspirasiModal')" class="w-full min-h-[46px] px-4 rounded-lg bg-maroon-700 text-white font-bold text-sm">
+            Sampaikan Aspirasi
+          </button>
+          <button type="button" onclick="closeMobileMenu(); openModal('ppidModal')" class="w-full min-h-[46px] px-4 rounded-lg border border-maroon-700 text-maroon-700 font-bold text-sm">
+            Permohonan Informasi Publik
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Bar Pengumuman / Breaking Info -->
+  <div class="bg-white border-b border-cream-300">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+      <span class="px-2.5 py-1 rounded bg-maroon-50 text-maroon-700 text-[11px] font-extrabold tracking-[0.1em] uppercase border border-maroon-700/15 shrink-0">Pengumuman</span>
+      <p class="flex-1 min-w-[220px] text-ink-700 leading-snug">
+        Tahapan Pemilwa KM UNY 2026 dimulai <span class="font-semibold text-ink-900">1 Desember 2026</span>. Cek jadwal dan syarat calon sesuai PKM KM UNY Nomor 04 Tahun 2026.
+      </p>
+      <button type="button" onclick="openLegislasiDetail(0)" class="inline-flex items-center gap-1 font-bold text-maroon-700 hover:text-maroon-900 min-h-[32px] cursor-pointer shrink-0">
+        <span>Selengkapnya</span>
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       2. HERO CAROUSEL SOROTAN PARLEMEN (AUTO-PLAY 6 DETIK + SWIPE HP)
+       ===================================================================== -->
+  <section id="beranda" aria-roledescription="carousel" aria-label="Sorotan DPM KM UNY" class="relative overflow-hidden bg-[#1C1012] select-none">
+    <!-- Track Slide -->
+    <div id="heroTrack" class="flex transition-transform duration-700 ease-out will-change-transform">
+      <!-- Slide 1 -->
+      <div class="w-full shrink-0 relative min-h-[480px] sm:min-h-[540px] lg:min-h-[560px] bg-gradient-to-br from-[#3F0C15] via-[#591622] to-[#23090E] hero-pattern">
+        <!-- Dekorasi Arsitektur Parlemen Halus -->
+        <svg class="absolute right-0 bottom-0 h-full w-auto opacity-10 pointer-events-none" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+          <path d="M50 380V140L200 60L350 140V380" stroke="#D9B36C" stroke-width="3"/>
+          <line x1="110" y1="160" x2="110" y2="380" stroke="#D9B36C" stroke-width="8"/>
+          <line x1="170" y1="140" x2="170" y2="380" stroke="#D9B36C" stroke-width="8"/>
+          <line x1="230" y1="140" x2="230" y2="380" stroke="#D9B36C" stroke-width="8"/>
+          <line x1="290" y1="160" x2="290" y2="380" stroke="#D9B36C" stroke-width="8"/>
+        </svg>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#18070A]/85 via-[#18070A]/35 to-transparent"></div>
+        <span class="hidden sm:inline-block absolute top-5 right-6 px-2.5 py-1 border border-dashed border-white/30 rounded text-[11px] text-[#EADCDD]/80 bg-black/20">Slot Foto 1920 × 720</span>
+        <div class="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-36 sm:pb-36 min-h-[480px] sm:min-h-[540px] lg:min-h-[560px] flex flex-col justify-end gap-4 text-white">
+          <span class="inline-flex items-center gap-2 text-xs sm:text-[13px] font-bold tracking-[0.16em] uppercase text-gold-400">
+            <span class="w-6 h-[2px] bg-gold-400"></span>Pemilwa KM UNY 2026
+          </span>
+          <h1 class="max-w-[740px] font-serif font-medium text-3xl sm:text-5xl lg:text-[58px] leading-[1.07] tracking-tight">
+            Saatnya memilih wakil mahasiswa UNY
+          </h1>
+          <p class="max-w-[560px] text-base sm:text-[17px] text-[#EADCDD] leading-relaxed">
+            Tahapan, syarat calon, dan jadwal pemilihan sesuai PKM KM UNY Nomor 04 Tahun 2026.
+          </p>
+          <div class="pt-2">
+            <a href="#legislasi" class="inline-flex items-center gap-2.5 min-h-[48px] px-6 rounded-lg bg-white hover:bg-gold-100 text-maroon-900 text-[15px] font-bold shadow-md transition-colors">
+              <span>Lihat tahapan</span>
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="w-full shrink-0 relative min-h-[480px] sm:min-h-[540px] lg:min-h-[560px] bg-gradient-to-br from-[#1B2638] via-[#27364E] to-[#131924] hero-pattern">
+        <svg class="absolute right-0 bottom-0 h-full w-auto opacity-10 pointer-events-none" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+          <circle cx="240" cy="220" r="140" stroke="#D9B36C" stroke-width="2"/>
+          <circle cx="240" cy="220" r="95" stroke="#D9B36C" stroke-width="2" stroke-dasharray="8 8"/>
+          <path d="M120 340L360 100" stroke="#D9B36C" stroke-width="2"/>
+        </svg>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#11151E]/85 via-[#11151E]/35 to-transparent"></div>
+        <span class="hidden sm:inline-block absolute top-5 right-6 px-2.5 py-1 border border-dashed border-white/30 rounded text-[11px] text-[#EADCDD]/80 bg-black/20">Slot Foto 1920 × 720</span>
+        <div class="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-36 sm:pb-36 min-h-[480px] sm:min-h-[540px] lg:min-h-[560px] flex flex-col justify-end gap-4 text-white">
+          <span class="inline-flex items-center gap-2 text-xs sm:text-[13px] font-bold tracking-[0.16em] uppercase text-gold-400">
+            <span class="w-6 h-[2px] bg-gold-400"></span>PARLEMNAS
+          </span>
+          <h2 class="max-w-[740px] font-serif font-medium text-3xl sm:text-5xl lg:text-[58px] leading-[1.07] tracking-tight">
+            Pekan Parlemen Mahasiswa Nasional
+          </h2>
+          <p class="max-w-[560px] text-base sm:text-[17px] text-[#E2E8F0] leading-relaxed">
+            Debat, esai, dan lomba kelegislatifan dalam satu pekan, ditutup seminar nasional.
+          </p>
+          <div class="pt-2">
+            <a href="#publikasi" class="inline-flex items-center gap-2.5 min-h-[48px] px-6 rounded-lg bg-white hover:bg-gold-100 text-maroon-900 text-[15px] font-bold shadow-md transition-colors">
+              <span>Info pendaftaran</span>
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="w-full shrink-0 relative min-h-[480px] sm:min-h-[540px] lg:min-h-[560px] bg-gradient-to-br from-[#3B2E1E] via-[#4D3B24] to-[#221A10] hero-pattern">
+        <svg class="absolute right-0 bottom-0 h-full w-auto opacity-10 pointer-events-none" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+          <rect x="90" y="90" width="220" height="160" rx="16" stroke="#D9B36C" stroke-width="3"/>
+          <path d="M140 250L100 310V250" stroke="#D9B36C" stroke-width="3"/>
+          <line x1="130" y1="145" x2="270" y2="145" stroke="#D9B36C" stroke-width="4"/>
+          <line x1="130" y1="190" x2="230" y2="190" stroke="#D9B36C" stroke-width="4"/>
+        </svg>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#1A130C]/85 via-[#1A130C]/35 to-transparent"></div>
+        <span class="hidden sm:inline-block absolute top-5 right-6 px-2.5 py-1 border border-dashed border-white/30 rounded text-[11px] text-[#EADCDD]/80 bg-black/20">Slot Foto 1920 × 720</span>
+        <div class="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-36 sm:pb-36 min-h-[480px] sm:min-h-[540px] lg:min-h-[560px] flex flex-col justify-end gap-4 text-white">
+          <span class="inline-flex items-center gap-2 text-xs sm:text-[13px] font-bold tracking-[0.16em] uppercase text-gold-400">
+            <span class="w-6 h-[2px] bg-gold-400"></span>Badan Aspirasi
+          </span>
+          <h2 class="max-w-[740px] font-serif font-medium text-3xl sm:text-5xl lg:text-[58px] leading-[1.07] tracking-tight">
+            Suaramu dicatat dan dikawal sampai tuntas
+          </h2>
+          <p class="max-w-[560px] text-base sm:text-[17px] text-[#F1E8DC] leading-relaxed">
+            Setiap aspirasi mendapat nomor tiket. Pantau statusnya kapan saja.
+          </p>
+          <div class="pt-2">
+            <button type="button" onclick="openModal('aspirasiModal')" class="inline-flex items-center gap-2.5 min-h-[48px] px-6 rounded-lg bg-white hover:bg-gold-100 text-maroon-900 text-[15px] font-bold shadow-md transition-colors cursor-pointer">
+              <span>Sampaikan aspirasi</span>
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 4 -->
+      <div class="w-full shrink-0 relative min-h-[480px] sm:min-h-[540px] lg:min-h-[560px] bg-gradient-to-br from-[#1A332A] via-[#244438] to-[#10201A] hero-pattern">
+        <svg class="absolute right-0 bottom-0 h-full w-auto opacity-10 pointer-events-none" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+          <path d="M110 80H290V320H110V80Z" stroke="#D9B36C" stroke-width="3"/>
+          <line x1="150" y1="140" x2="250" y2="140" stroke="#D9B36C" stroke-width="4"/>
+          <line x1="150" y1="185" x2="250" y2="185" stroke="#D9B36C" stroke-width="4"/>
+          <line x1="150" y1="230" x2="220" y2="230" stroke="#D9B36C" stroke-width="4"/>
+        </svg>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0D1A15]/85 via-[#0D1A15]/35 to-transparent"></div>
+        <span class="hidden sm:inline-block absolute top-5 right-6 px-2.5 py-1 border border-dashed border-white/30 rounded text-[11px] text-[#EADCDD]/80 bg-black/20">Slot Foto 1920 × 720</span>
+        <div class="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-36 sm:pb-36 min-h-[480px] sm:min-h-[540px] lg:min-h-[560px] flex flex-col justify-end gap-4 text-white">
+          <span class="inline-flex items-center gap-2 text-xs sm:text-[13px] font-bold tracking-[0.16em] uppercase text-gold-400">
+            <span class="w-6 h-[2px] bg-gold-400"></span>Akademi Legislator
+          </span>
+          <h2 class="max-w-[740px] font-serif font-medium text-3xl sm:text-5xl lg:text-[58px] leading-[1.07] tracking-tight">
+            Kelas praktik legal drafting untuk legislatif fakultas
+          </h2>
+          <p class="max-w-[560px] text-base sm:text-[17px] text-[#DCEAE4] leading-relaxed">
+            Belajar menyusun pasal langsung dari kasus nyata bersama Badan Legislasi.
+          </p>
+          <div class="pt-2">
+            <a href="#publikasi" class="inline-flex items-center gap-2.5 min-h-[48px] px-6 rounded-lg bg-white hover:bg-gold-100 text-maroon-900 text-[15px] font-bold shadow-md transition-colors">
+              <span>Daftar kelas</span>
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kontrol Carousel (Counter, Indikator Bar, Tombol Prev/Next) -->
+    <div class="absolute left-0 right-0 bottom-16 sm:bottom-[72px] z-20">
+      <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          <span class="text-sm font-bold text-white tabular-nums mr-2">
+            <span id="heroCounter">01</span>
+            <span class="text-white/50 font-medium"> / 04</span>
+          </span>
+          <div id="heroBars" class="flex items-center gap-1.5">
+            <!-- Diisi lewat JS -->
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="stepHero(-1)" aria-label="Sorotan sebelumnya" class="w-11 h-11 rounded-lg border border-white/35 bg-black/20 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+          <button type="button" onclick="stepHero(1)" aria-label="Sorotan berikutnya" class="w-11 h-11 rounded-lg border border-white/35 bg-black/20 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       3. BAR LAYANAN CEPAT (MENGAMBANG DI BAWAH HERO, ALA PORTAL DPR RI)
+       ===================================================================== -->
+  <div class="relative z-30 max-w-[1240px] mx-auto -mt-10 sm:-mt-11 px-4 sm:px-6 lg:px-8">
+    <nav aria-label="Layanan cepat" class="bg-white border border-cream-300 rounded-xl shadow-float grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 sm:divide-x divide-cream-200 overflow-hidden">
+      <a href="#aspirasi" class="p-4 sm:p-5 flex items-start gap-3.5 hover:bg-cream-50 transition-colors group">
+        <div class="w-10 h-10 rounded-lg bg-maroon-50 text-maroon-700 flex items-center justify-center shrink-0 group-hover:bg-maroon-700 group-hover:text-white transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/></svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-[15px] font-bold text-ink-900 group-hover:text-maroon-700">Aspirasi</span>
+          <span class="text-[13px] text-ink-500 leading-snug">Kirim dan lacak tiket</span>
+        </div>
+      </a>
+
+      <a href="#legislasi" class="p-4 sm:p-5 flex items-start gap-3.5 hover:bg-cream-50 transition-colors group">
+        <div class="w-10 h-10 rounded-lg bg-maroon-50 text-maroon-700 flex items-center justify-center shrink-0 group-hover:bg-maroon-700 group-hover:text-white transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-[15px] font-bold text-ink-900 group-hover:text-maroon-700">Pantau PKM</span>
+          <span class="text-[13px] text-ink-500 leading-snug">Tahapan legislasi</span>
+        </div>
+      </a>
+
+      <a href="#struktur" class="p-4 sm:p-5 flex items-start gap-3.5 hover:bg-cream-50 transition-colors group">
+        <div class="w-10 h-10 rounded-lg bg-maroon-50 text-maroon-700 flex items-center justify-center shrink-0 group-hover:bg-maroon-700 group-hover:text-white transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c.7-3.4 3.2-5 6-5s5.3 1.6 6 5"/><path d="M17 8h4M19 6v4"/></svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-[15px] font-bold text-ink-900 group-hover:text-maroon-700">Kenali Wakilmu</span>
+          <span class="text-[13px] text-ink-500 leading-snug">Struktur dan tupoksi</span>
+        </div>
+      </a>
+
+      <a href="#dokumen" class="p-4 sm:p-5 flex items-start gap-3.5 hover:bg-cream-50 transition-colors group">
+        <div class="w-10 h-10 rounded-lg bg-maroon-50 text-maroon-700 flex items-center justify-center shrink-0 group-hover:bg-maroon-700 group-hover:text-white transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 21h14M4 7h16"/><path d="M6 7l-3 6a3 3 0 0 0 6 0zM18 7l-3 6a3 3 0 0 0 6 0z"/></svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-[15px] font-bold text-ink-900 group-hover:text-maroon-700">JDIH KM</span>
+          <span class="text-[13px] text-ink-500 leading-snug">Database PKM</span>
+        </div>
+      </a>
+
+      <button type="button" onclick="openModal('ppidModal')" class="p-4 sm:p-5 flex items-start gap-3.5 text-left hover:bg-cream-50 transition-colors group cursor-pointer sm:col-span-2 lg:col-span-1">
+        <div class="w-10 h-10 rounded-lg bg-maroon-50 text-maroon-700 flex items-center justify-center shrink-0 group-hover:bg-maroon-700 group-hover:text-white transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-[15px] font-bold text-ink-900 group-hover:text-maroon-700">Informasi Publik</span>
+          <span class="text-[13px] text-ink-500 leading-snug">Ajukan permohonan</span>
+        </div>
+      </button>
+    </nav>
+  </div>
+
+  <!-- =====================================================================
+       4. BAGIAN 01 · PROFIL & ANGKA KUNCI
+       ===================================================================== -->
+  <section id="profil" class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24 pb-12 sm:pb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+      <!-- Kolom Kiri: Profil & 3 Fungsi -->
+      <div class="lg:col-span-7 flex flex-col gap-5">
+        <span class="text-xs font-extrabold tracking-[0.16em] uppercase text-gold-700">01 · Profil</span>
+        <h2 class="font-serif font-medium text-3xl sm:text-[42px] leading-[1.12] tracking-tight text-ink-900">
+          Lembaga legislatif mahasiswa Universitas Negeri Yogyakarta
+        </h2>
+        <p class="text-base sm:text-[17px] text-ink-700 leading-relaxed max-w-[620px]">
+          DPM adalah lembaga tinggi dalam Keluarga Mahasiswa UNY yang memegang kekuasaan legislatif. Anggotanya delegasi dari seluruh fakultas, bekerja tanpa rangkap jabatan.
+        </p>
+
+        <!-- 3 Fungsi Parlemen -->
+        <div class="mt-2 border-t border-cream-300 divide-y divide-cream-300">
+          <div class="py-5 flex items-start gap-5 sm:gap-6">
+            <span class="w-9 shrink-0 font-serif text-2xl sm:text-[28px] leading-none text-gold-700 pt-0.5">I</span>
+            <div class="flex flex-col gap-1">
+              <h3 class="text-[17px] font-bold text-ink-900">Perwakilan</h3>
+              <p class="text-[15px] text-ink-700">Menampung dan memperjuangkan aspirasi mahasiswa seluruh fakultas.</p>
+            </div>
+          </div>
+
+          <div class="py-5 flex items-start gap-5 sm:gap-6">
+            <span class="w-9 shrink-0 font-serif text-2xl sm:text-[28px] leading-none text-gold-700 pt-0.5">II</span>
+            <div class="flex flex-col gap-1">
+              <h3 class="text-[17px] font-bold text-ink-900">Legislasi</h3>
+              <p class="text-[15px] text-ink-700">Menyusun, merawat, dan memperbarui Peraturan Keluarga Mahasiswa (PKM).</p>
+            </div>
+          </div>
+
+          <div class="py-5 flex items-start gap-5 sm:gap-6">
+            <span class="w-9 shrink-0 font-serif text-2xl sm:text-[28px] leading-none text-gold-700 pt-0.5">III</span>
+            <div class="flex flex-col gap-1">
+              <h3 class="text-[17px] font-bold text-ink-900">Pengawasan</h3>
+              <p class="text-[15px] text-ink-700">Mengawasi program kerja dan anggaran BEM KM UNY sebagai mitra.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kolom Kanan: Panel Angka Kunci Marun Gelap -->
+      <aside aria-label="Angka kunci periode 2026" class="lg:col-span-5 bg-maroon-900 text-white rounded-xl p-6 sm:p-8 shadow-card flex flex-col gap-7 relative overflow-hidden">
+        <div class="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-gold-400/10 pointer-events-none"></div>
+        <div class="flex items-center justify-between gap-2 relative">
+          <span class="text-xs font-extrabold tracking-[0.16em] uppercase text-gold-400">Periode 2026</span>
+          <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-white/10 text-[#EADCDD]">Data Contoh</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-x-5 gap-y-7 relative">
+          <div class="flex flex-col gap-1">
+            <span class="font-serif text-4xl sm:text-[44px] leading-none tabular-nums text-white">49</span>
+            <span class="text-[13.5px] text-[#D8C6C9]">Delegasi fakultas</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="font-serif text-4xl sm:text-[44px] leading-none tabular-nums text-white">24</span>
+            <span class="text-[13.5px] text-[#D8C6C9]">Staf Ahli</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="font-serif text-4xl sm:text-[44px] leading-none tabular-nums text-white">12</span>
+            <span class="text-[13.5px] text-[#D8C6C9]">PKM berlaku</span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span id="profilTuntasCount" class="font-serif text-4xl sm:text-[44px] leading-none tabular-nums text-gold-400">1</span>
+            <span class="text-[13.5px] text-[#D8C6C9]">Aspirasi tuntas</span>
+          </div>
+        </div>
+
+        <p class="pt-5 border-t border-white/15 text-sm leading-relaxed text-[#D8C6C9] relative">
+          Setiap fakultas mengirim paling banyak 7 delegasi dengan hak suara. Staf Ahli hasil rekrutmen Ketua membantu kerja teknis tanpa hak suara.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       5. BAGIAN 02 · STRUKTUR DAN TUPOKSI (AKD — INTERAKTIF PENUH)
+       ===================================================================== -->
+  <section id="struktur" class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+    <!-- Header Seksi -->
+    <div class="flex flex-wrap items-end justify-between gap-6 mb-8">
+      <div class="flex flex-col gap-3 max-w-[680px]">
+        <span class="text-xs font-extrabold tracking-[0.16em] uppercase text-gold-700">02 · Struktur dan Tupoksi</span>
+        <h2 class="font-serif font-medium text-3xl sm:text-[42px] leading-[1.12] tracking-tight text-ink-900">
+          Siapa mengerjakan apa
+        </h2>
+        <p class="text-[15.5px] sm:text-base text-ink-700">
+          Komisi dibagi per mitra, fungsi lintas bidang dipegang badan, urusan dapur lembaga dipegang Sekretaris Jenderal. Pilih unit untuk melihat tugasnya.
+        </p>
+      </div>
+      <button type="button" onclick="openModal('baganModal')" class="inline-flex items-center gap-2 min-h-[44px] px-4 rounded-lg border border-cream-400 bg-white hover:border-maroon-700 hover:text-maroon-700 text-ink-900 text-sm font-bold shadow-sm transition-colors cursor-pointer">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="9" y="3" width="6" height="4" rx="1"/><rect x="3" y="17" width="6" height="4" rx="1"/><rect x="15" y="17" width="6" height="4" rx="1"/><path d="M12 7v5M6 17v-3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3"/>
+        </svg>
+        <span>Lihat bagan struktur</span>
+      </button>
+    </div>
+
+    <!-- Pemilih Unit Versi Mobile (Dropdown + Chip Gulir Cepat) -->
+    <div class="lg:hidden mb-4 flex flex-col gap-3">
+      <div>
+        <label for="mobileUnitSelect" class="block text-xs font-bold uppercase tracking-wider text-ink-500 mb-1.5">Pilih Unit / Alat Kelengkapan</label>
+        <select id="mobileUnitSelect" onchange="selectUnit(this.value)" class="w-full min-h-[48px] px-3.5 rounded-xl border border-cream-400 bg-white text-ink-900 font-semibold text-[15px] focus:outline-none focus:ring-2 focus:ring-maroon-700">
+          <!-- Diisi lewat JS -->
+        </select>
+      </div>
+      <div id="mobileUnitPills" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+        <!-- Diisi lewat JS -->
+      </div>
+    </div>
+
+    <!-- Layout 2 Kolom Desktop (Daftar Unit + Kartu Detail) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <!-- Sidebar Unit Desktop -->
+      <nav id="desktopUnitNav" aria-label="Daftar unit DPM KM UNY" class="hidden lg:flex lg:col-span-4 bg-white border border-cream-300 rounded-xl p-3 flex-col gap-0.5 shadow-card">
+        <!-- Diisi lewat JS -->
+      </nav>
+
+      <!-- Panel Detail Unit -->
+      <div id="unitDetailPanel" aria-live="polite" class="lg:col-span-8 bg-white border border-cream-300 rounded-xl p-6 sm:p-9 shadow-card">
+        <!-- Diisi lewat JS -->
+      </div>
+    </div>
+
+    <!-- Strip Arah Aspirasi (Bisa diklik untuk melompat ke unit terkait) -->
+    <div class="mt-7 py-4 px-5 bg-white/80 border-y border-cream-300 rounded-lg flex flex-wrap items-center gap-x-6 gap-y-2.5 text-sm text-ink-700">
+      <span class="font-extrabold text-ink-900 uppercase text-xs tracking-wider">Arah aspirasi:</span>
+      <button type="button" onclick="selectUnit('kom1')" class="hover:underline cursor-pointer">Kemahasiswaan <strong class="text-maroon-700">Komisi I</strong></button>
+      <button type="button" onclick="selectUnit('kom2')" class="hover:underline cursor-pointer">Sospol &amp; kemitraan <strong class="text-maroon-700">Komisi II</strong></button>
+      <button type="button" onclick="selectUnit('kom3')" class="hover:underline cursor-pointer">Minat bakat &amp; UKM <strong class="text-maroon-700">Komisi III</strong></button>
+      <button type="button" onclick="selectUnit('baleg')" class="hover:underline cursor-pointer">Aturan <strong class="text-maroon-700">Badan Legislasi</strong></button>
+      <button type="button" onclick="selectUnit('sekjen')" class="hover:underline cursor-pointer">Surat &amp; publikasi <strong class="text-maroon-700">Sekretaris Jenderal</strong></button>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       6. BAGIAN 03 · LEGISLASI (PEMANTAUAN MATRIKS KEORGANISASIAN / PROLEGNAS)
+       ===================================================================== -->
+  <section id="legislasi" class="bg-white border-y border-cream-300">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 flex flex-col gap-8">
+      <!-- Header & Filter Tabs -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div class="flex flex-col gap-3 max-w-[660px]">
+          <span class="text-xs font-extrabold tracking-[0.16em] uppercase text-gold-700">03 · Legislasi</span>
+          <h2 class="font-serif font-medium text-3xl sm:text-[42px] leading-[1.12] tracking-tight text-ink-900">
+            Pemantauan Matriks Keorganisasian
+          </h2>
+          <p class="text-[15.5px] sm:text-base text-ink-700">
+            Daftar PKM yang dibahas Badan Legislasi periode ini, lengkap dengan tahapannya.
+          </p>
+        </div>
+        <a href="#dokumen" class="inline-flex items-center gap-1.5 text-sm font-bold text-maroon-700 hover:text-maroon-900 min-h-[40px] shrink-0">
+          <span>Lihat semua PKM di JDIH</span>
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <!-- Filter Status Interaktif -->
+      <div id="legislasiFilters" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1" role="tablist" aria-label="Filter status legislasi">
+        <!-- Diisi lewat JS -->
+      </div>
+
+      <!-- Tabel Desktop & Kartu Responsif Mobile -->
+      <div class="border border-cream-300 rounded-xl overflow-hidden bg-white shadow-sm">
+        <!-- Tampilan Tabel (md ke atas) -->
+        <div class="hidden md:block overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-cream-50 border-b border-cream-300 text-xs font-bold uppercase tracking-[0.1em] text-ink-500">
+                <th scope="col" class="py-4 px-5">Peraturan</th>
+                <th scope="col" class="py-4 px-5 w-[300px]">Tahap Pembahasan</th>
+                <th scope="col" class="py-4 px-5 w-[140px]">Status</th>
+                <th scope="col" class="py-4 px-5 w-[140px] text-right">Dokumen</th>
+              </tr>
+            </thead>
+            <tbody id="legislasiTableBody" class="divide-y divide-cream-200 text-[15px]">
+              <!-- Diisi lewat JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Tampilan Kartu (Mobile < md) -->
+        <div id="legislasiMobileCards" class="md:hidden divide-y divide-cream-200">
+          <!-- Diisi lewat JS -->
+        </div>
+      </div>
+
+      <!-- 5 Langkah Alur Pembahasan PKM -->
+      <div class="pt-4">
+        <h3 class="text-xs font-extrabold uppercase tracking-[0.14em] text-ink-500 mb-4">Alur Pembahasan PKM KM UNY</h3>
+        <ol class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <li class="p-4 rounded-xl bg-cream-50 border border-cream-200 flex flex-col gap-1">
+            <span class="font-serif text-2xl font-medium text-gold-700 leading-none">1</span>
+            <strong class="text-sm text-ink-900 mt-1">Matriks Keorganisasian</strong>
+            <span class="text-[13px] text-ink-500">Daftar PKM yang dibahas satu periode</span>
+          </li>
+          <li class="p-4 rounded-xl bg-cream-50 border border-cream-200 flex flex-col gap-1">
+            <span class="font-serif text-2xl font-medium text-gold-700 leading-none">2</span>
+            <strong class="text-sm text-ink-900 mt-1">Penyusunan DIM</strong>
+            <span class="text-[13px] text-ink-500">Masukan BEM dan komisi, paling lambat H-5 RDP</span>
+          </li>
+          <li class="p-4 rounded-xl bg-cream-50 border border-cream-200 flex flex-col gap-1">
+            <span class="font-serif text-2xl font-medium text-gold-700 leading-none">3</span>
+            <strong class="text-sm text-ink-900 mt-1">RDP Tingkat I</strong>
+            <span class="text-[13px] text-ink-500">Bahas pasal yang ditandai, ditutup pendapat mini</span>
+          </li>
+          <li class="p-4 rounded-xl bg-cream-50 border border-cream-200 flex flex-col gap-1">
+            <span class="font-serif text-2xl font-medium text-gold-700 leading-none">4</span>
+            <strong class="text-sm text-ink-900 mt-1">Tim Perumus</strong>
+            <span class="text-[13px] text-ink-500">Merapikan naskah dalam 2 hari</span>
+          </li>
+          <li class="p-4 rounded-xl bg-cream-50 border border-cream-200 flex flex-col gap-1">
+            <span class="font-serif text-2xl font-medium text-gold-700 leading-none">5</span>
+            <strong class="text-sm text-ink-900 mt-1">Pengesahan Tingkat II</strong>
+            <span class="text-[13px] text-ink-500">Persetujuan delegasi dan ketuk palu</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       7. BAGIAN 04 · ASPIRASI (LACAK TIKET & KIRIM ASPIRASI INTERAKTIF)
+       ===================================================================== -->
+  <section id="aspirasi" class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+      <!-- Kolom Kiri: Penjelasan & 4 Alur Aspirasi -->
+      <div class="lg:col-span-6 flex flex-col gap-5">
+        <span class="text-xs font-extrabold tracking-[0.16em] uppercase text-gold-700">04 · Aspirasi</span>
+        <h2 class="font-serif font-medium text-3xl sm:text-[42px] leading-[1.12] tracking-tight text-ink-900">
+          Setiap aspirasi punya nomor tiket
+        </h2>
+        <p class="text-[15.5px] sm:text-base text-ink-700 max-w-[540px]">
+          Kirim lewat formulir daring, kotak aduan, atau saat Aspirasi Keliling ke fakultas. Statusnya bisa kamu pantau sampai ada tindak lanjut.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+          <div class="p-4 rounded-xl bg-white border border-cream-300 flex flex-col gap-1">
+            <span class="text-xs font-bold text-gold-700 uppercase tracking-wider">Tahap 1</span>
+            <strong class="text-[15px] text-ink-900">1. Diterima</strong>
+            <span class="text-sm text-ink-500">Tanda terima paling lambat 3 hari kerja</span>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-cream-300 flex flex-col gap-1">
+            <span class="text-xs font-bold text-gold-700 uppercase tracking-wider">Tahap 2</span>
+            <strong class="text-[15px] text-ink-900">2. Dipilah</strong>
+            <span class="text-sm text-ink-500">Diteruskan ke komisi atau badan terkait</span>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-cream-300 flex flex-col gap-1">
+            <span class="text-xs font-bold text-gold-700 uppercase tracking-wider">Tahap 3</span>
+            <strong class="text-[15px] text-ink-900">3. Ditindaklanjuti</strong>
+            <span class="text-sm text-ink-500">Lewat RDP, audiensi, atau usulan aturan</span>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-cream-300 flex flex-col gap-1">
+            <span class="text-xs font-bold text-gold-700 uppercase tracking-wider">Tahap 4</span>
+            <strong class="text-[15px] text-ink-900">4. Dikabarkan</strong>
+            <span class="text-sm text-ink-500">Hasil tindak lanjut dikirim ke pengadu</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kolom Kanan: Kartu Pelacakan Tiket & Statistik Dinamis -->
+      <div class="lg:col-span-6 bg-white border border-cream-300 rounded-xl p-6 sm:p-8 shadow-card flex flex-col gap-5">
+        <div class="flex items-center justify-between gap-2">
+          <h3 class="font-serif font-medium text-2xl sm:text-[26px] text-ink-900">Lacak status aspirasi</h3>
+          <span class="px-2.5 py-1 rounded-full bg-maroon-50 text-maroon-700 text-xs font-bold">Real-time</span>
+        </div>
+
+        <!-- Form Cek Tiket -->
+        <form onsubmit="handleTrackTicket(event)" class="flex flex-col gap-2.5">
+          <label for="ticketInput" class="text-sm font-bold text-ink-900">Nomor tiket</label>
+          <div class="flex flex-col sm:flex-row gap-2.5">
+            <input id="ticketInput" type="text" placeholder="Contoh: ASP-2026-0001" class="flex-1 min-h-[48px] px-4 rounded-lg border border-cream-400 text-[15px] uppercase font-mono placeholder:normal-case placeholder:font-sans focus:outline-none focus:ring-2 focus:ring-maroon-700">
+            <button type="submit" class="min-h-[48px] px-6 rounded-lg bg-maroon-700 hover:bg-maroon-900 text-white font-bold text-sm transition-colors cursor-pointer shrink-0">
+              Cek status
+            </button>
+          </div>
+          <!-- Chip Contoh Tiket Cepat -->
+          <div class="flex flex-wrap items-center gap-1.5 pt-1 text-xs text-ink-500">
+            <span>Coba tiket:</span>
+            <button type="button" onclick="quickTrack('ASP-2026-0001')" class="px-2.5 py-1 rounded-md bg-cream-100 hover:bg-maroon-50 hover:text-maroon-700 font-mono font-semibold text-ink-700 border border-cream-300 transition-colors cursor-pointer">ASP-2026-0001</button>
+            <button type="button" onclick="quickTrack('ASP-2026-0002')" class="px-2.5 py-1 rounded-md bg-cream-100 hover:bg-maroon-50 hover:text-maroon-700 font-mono font-semibold text-ink-700 border border-cream-300 transition-colors cursor-pointer">ASP-2026-0002</button>
+            <button type="button" onclick="quickTrack('ASP-2026-0003')" class="px-2.5 py-1 rounded-md bg-cream-100 hover:bg-maroon-50 hover:text-maroon-700 font-mono font-semibold text-ink-700 border border-cream-300 transition-colors cursor-pointer">ASP-2026-0003</button>
+          </div>
+        </form>
+
+        <!-- Hasil Pelacakan Tiket (Muncul saat dicari) -->
+        <div id="ticketResult" class="hidden rounded-xl border border-cream-300 bg-cream-50 p-4 sm:p-5">
+          <!-- Diisi lewat JS -->
+        </div>
+
+        <!-- Statistik Dinamis Aspirasi -->
+        <div class="grid grid-cols-3 border border-cream-200 rounded-xl divide-x divide-cream-200 bg-cream-50/50">
+          <div class="p-3.5 sm:p-4 flex flex-col">
+            <span id="statMasuk" class="font-serif text-2xl sm:text-3xl leading-none tabular-nums text-ink-900">3</span>
+            <span class="text-xs font-medium text-ink-500 mt-1">Masuk</span>
+          </div>
+          <div class="p-3.5 sm:p-4 flex flex-col">
+            <span id="statDiproses" class="font-serif text-2xl sm:text-3xl leading-none tabular-nums text-gold-700">2</span>
+            <span class="text-xs font-medium text-ink-500 mt-1">Diproses</span>
+          </div>
+          <div class="p-3.5 sm:p-4 flex flex-col">
+            <span id="statTuntas" class="font-serif text-2xl sm:text-3xl leading-none tabular-nums text-emerald-700">1</span>
+            <span class="text-xs font-medium text-ink-500 mt-1">Tuntas</span>
+          </div>
+        </div>
+
+        <button type="button" onclick="openModal('aspirasiModal')" class="w-full min-h-[48px] rounded-lg border-2 border-maroon-700 text-maroon-700 hover:bg-maroon-700 hover:text-white font-bold text-[15px] transition-colors cursor-pointer">
+          + Kirim aspirasi baru
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       8. BAGIAN 05 · PUBLIKASI (BERITA PARLEMEN & AGENDA SIDANG)
+       ===================================================================== -->
+  <section id="publikasi" class="bg-white border-y border-cream-300">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+      <div class="flex flex-wrap items-end justify-between gap-4 mb-9">
+        <div class="flex flex-col gap-3">
+          <span class="text-xs font-extrabold tracking-[0.16em] uppercase text-gold-700">05 · Publikasi</span>
+          <h2 class="font-serif font-medium text-3xl sm:text-[42px] leading-[1.12] tracking-tight text-ink-900">
+            Berita dan agenda sidang
+          </h2>
+        </div>
+        <button type="button" onclick="showToast('Menampilkan seluruh rilis berita resmi DPM KM UNY periode 2026')" class="inline-flex items-center gap-1.5 text-sm font-bold text-maroon-700 hover:text-maroon-900 min-h-[40px] cursor-pointer">
+          <span>Semua berita</span>
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <!-- Ruang Redaksi Berita (Kiri 8 Kolom) -->
+        <div class="lg:col-span-8 flex flex-col gap-8">
+          <!-- Berita Utama (Featured) -->
+          <article onclick="openNewsModal(0)" class="group cursor-pointer grid grid-cols-1 md:grid-cols-12 gap-6 items-center pb-8 border-b border-cream-300">
+            <div class="md:col-span-6 aspect-[16/10] rounded-xl bg-gradient-to-br from-maroon-900 via-maroon-700 to-[#24070D] p-5 flex flex-col justify-between text-white relative overflow-hidden">
+              <div class="absolute inset-0 hero-pattern opacity-40"></div>
+              <span class="relative z-10 self-start px-2.5 py-1 rounded bg-white/15 text-[11px] font-bold tracking-wider uppercase text-gold-400">Berita Utama</span>
+              <div class="relative z-10 flex items-end justify-between">
+                <span class="font-serif text-xl text-white/95 leading-snug max-w-[85%]">Sidang Pengesahan PKM Pemilwa KM UNY 2026</span>
+                <span class="text-[10px] px-2 py-0.5 border border-dashed border-white/40 rounded text-white/75 shrink-0">Foto</span>
+              </div>
+            </div>
+            <div class="md:col-span-6 flex flex-col gap-2.5">
+              <span class="text-xs font-extrabold tracking-[0.12em] uppercase text-gold-700">Legislasi · 20 November 2026</span>
+              <h3 class="font-serif font-medium text-2xl sm:text-[28px] leading-snug text-ink-900 group-hover:text-maroon-700 transition-colors">
+                Sidang Paripurna Sahkan PKM KM UNY Nomor 04 Tahun 2026 tentang Pemilwa
+              </h3>
+              <p class="text-[15px] text-ink-700 leading-relaxed">
+                Delegasi seluruh fakultas menyepakati aturan baru transparansi kampanye dan pengawasan pemungutan suara elektronik untuk Pemilwa KM UNY 2026.
+              </p>
+              <span class="inline-flex items-center gap-1 text-sm font-bold text-maroon-700 mt-1">
+                Baca selengkapnya →
+              </span>
+            </div>
+          </article>
+
+          <!-- 2 Berita Pendukung -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <article onclick="openNewsModal(1)" class="group cursor-pointer p-5 rounded-xl bg-cream-50 hover:bg-maroon-50/40 border border-cream-200 transition-colors flex flex-col justify-between gap-3">
+              <div class="flex flex-col gap-2">
+                <span class="text-xs font-extrabold tracking-[0.12em] uppercase text-gold-700">PARLEMNAS · 14 November 2026</span>
+                <h3 class="font-serif font-medium text-xl leading-snug text-ink-900 group-hover:text-maroon-700 transition-colors">
+                  Pendaftaran Pekan Parlemen Mahasiswa Nasional (PARLEMNAS) Resmi Dibuka
+                </h3>
+                <p class="text-sm text-ink-700 line-clamp-2">
+                  Badan Legislasi membuka pendaftaran lomba legal drafting, debat parlemen, dan esai untuk mahasiswa se-Indonesia.
+                </p>
+              </div>
+              <span class="text-xs font-bold text-maroon-700">Baca berita →</span>
+            </article>
+
+            <article onclick="openNewsModal(2)" class="group cursor-pointer p-5 rounded-xl bg-cream-50 hover:bg-maroon-50/40 border border-cream-200 transition-colors flex flex-col justify-between gap-3">
+              <div class="flex flex-col gap-2">
+                <span class="text-xs font-extrabold tracking-[0.12em] uppercase text-gold-700">Aspirasi · 08 November 2026</span>
+                <h3 class="font-serif font-medium text-xl leading-snug text-ink-900 group-hover:text-maroon-700 transition-colors">
+                  Aspirasi Keliling Badan Aspirasi Serap 64 Usulan Sarpras dan UKT di 8 Fakultas
+                </h3>
+                <p class="text-sm text-ink-700 line-clamp-2">
+                  Seluruh aspirasi yang dihimpun telah diklasifikasi ke Komisi I–III untuk dibawa dalam Rapat Dengar Pendapat bersama BEM KM UNY.
+                </p>
+              </div>
+              <span class="text-xs font-bold text-maroon-700">Baca berita →</span>
+            </article>
+          </div>
+        </div>
+
+        <!-- Sidebar Agenda Sidang & Rapat (Kanan 4 Kolom) -->
+        <aside aria-label="Agenda sidang dan rapat" class="lg:col-span-4 flex flex-col bg-cream-50 border border-cream-300 rounded-xl p-6">
+          <div class="flex items-baseline justify-between pb-3.5 border-b-2 border-ink-900">
+            <h3 class="text-sm font-extrabold tracking-[0.1em] uppercase text-ink-900">Agenda Sidang &amp; Rapat</h3>
+            <span class="text-xs font-semibold text-ink-500">Desember 2026</span>
+          </div>
+
+          <div class="divide-y divide-cream-300 flex-1">
+            <button type="button" onclick="openAgendaDetail('Sidang Paripurna', '04 Desember 2026', '09.00 WIB · Ruang Sidang Utama SC UNY', 'Agenda: Pengesahan jadwal Pemilwa KM UNY 2026, laporan triwulan Komisi I–III, dan penetapan Panitia Khusus Pemilwa. Terbuka untuk mahasiswa UNY sebagai peninjau.')" class="w-full text-left py-4 flex items-start gap-4 hover:bg-white/70 px-2 -mx-2 rounded-lg transition-colors cursor-pointer">
+              <div class="w-12 shrink-0 py-1.5 rounded-lg bg-white border border-cream-300 flex flex-col items-center">
+                <span class="font-serif text-2xl leading-none text-maroon-700">04</span>
+                <span class="text-[10.5px] font-extrabold uppercase tracking-wider text-ink-500 mt-0.5">DES</span>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <strong class="text-[15px] text-ink-900">Sidang Paripurna</strong>
+                <span class="text-xs text-ink-500">09.00 WIB · Ruang Sidang Utama SC UNY</span>
+                <span class="text-[11.5px] font-semibold text-maroon-700 mt-1">Sidang Terbuka</span>
+              </div>
+            </button>
+
+            <button type="button" onclick="openAgendaDetail('RDP Tingkat I bersama BEM KM UNY', '09 Desember 2026', '13.30 WIB · Ruang Rapat Baleg SC Lt. 2', 'Agenda: Pembahasan Daftar Inventarisasi Masalah (DIM) Amandemen PKM Aspirasi dan Advokasi bersama perwakilan BEM KM UNY serta Komisi I.')" class="w-full text-left py-4 flex items-start gap-4 hover:bg-white/70 px-2 -mx-2 rounded-lg transition-colors cursor-pointer">
+              <div class="w-12 shrink-0 py-1.5 rounded-lg bg-white border border-cream-300 flex flex-col items-center">
+                <span class="font-serif text-2xl leading-none text-maroon-700">09</span>
+                <span class="text-[10.5px] font-extrabold uppercase tracking-wider text-ink-500 mt-0.5">DES</span>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <strong class="text-[15px] text-ink-900">RDP Tingkat I bersama BEM KM UNY</strong>
+                <span class="text-xs text-ink-500">13.30 WIB · Ruang Rapat Baleg SC Lt. 2</span>
+                <span class="text-[11.5px] font-semibold text-gold-700 mt-1">Badan Legislasi</span>
+              </div>
+            </button>
+
+            <button type="button" onclick="openAgendaDetail('RDP Klaster UKM', '15 Desember 2026', '15.30 WIB · Aula Student Center UNY', 'Agenda: Pendampingan dan penyerapan aspirasi 42 UKM UNY terkait pemanfaatan fasilitas, jadwal kegiatan, dan koordinasi bersama Ditmawa.')" class="w-full text-left py-4 flex items-start gap-4 hover:bg-white/70 px-2 -mx-2 rounded-lg transition-colors cursor-pointer">
+              <div class="w-12 shrink-0 py-1.5 rounded-lg bg-white border border-cream-300 flex flex-col items-center">
+                <span class="font-serif text-2xl leading-none text-maroon-700">15</span>
+                <span class="text-[10.5px] font-extrabold uppercase tracking-wider text-ink-500 mt-0.5">DES</span>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <strong class="text-[15px] text-ink-900">RDP Klaster UKM</strong>
+                <span class="text-xs text-ink-500">15.30 WIB · Aula Student Center UNY</span>
+                <span class="text-[11.5px] font-semibold text-gold-700 mt-1">Komisi III · 42 UKM</span>
+              </div>
+            </button>
+          </div>
+
+          <button type="button" onclick="showToast('Kalender sidang lengkap periode Desember 2026 telah diperbarui')" class="mt-4 pt-3 border-t border-cream-300 text-left text-sm font-bold text-maroon-700 hover:text-maroon-900 cursor-pointer">
+            Lihat kalender lengkap →
+          </button>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       9. BAGIAN 06 · DOKUMEN (JDIH KM UNY) & PPID (INFORMASI PUBLIK)
+       ===================================================================== -->
+  <section id="dokumen" class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <!-- Daftar Produk Hukum & Arsip (Kiri 8 Kolom) -->
+      <div class="lg:col-span-8 flex flex-col gap-6">
+        <div class="flex flex-col gap-3">
+          <span class="text-xs font-extrabold tracking-[0.16em] uppercase text-gold-700">06 · Dokumen (JDIH KM UNY)</span>
+          <h2 class="font-serif font-medium text-3xl sm:text-[42px] leading-[1.12] tracking-tight text-ink-900">
+            Produk hukum dan arsip
+          </h2>
+        </div>
+
+        <!-- Bar Filter Kategori + Pencarian Cepat JDIH -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div id="docCategoryFilters" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-0.5">
+            <!-- Diisi lewat JS -->
+          </div>
+          <div class="relative w-full sm:w-64">
+            <input id="docSearchInput" type="text" oninput="renderDocuments()" placeholder="Cari nomor / judul dokumen..." class="w-full min-h-[42px] pl-9 pr-3.5 rounded-lg border border-cream-400 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon-700">
+            <svg class="w-4 h-4 text-ink-500 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+          </div>
+        </div>
+
+        <!-- List Dokumen -->
+        <div id="documentList" class="border-t-2 border-ink-900 bg-white rounded-b-xl border-x border-b border-cream-300 divide-y divide-cream-200 overflow-hidden">
+          <!-- Diisi lewat JS -->
+        </div>
+      </div>
+
+      <!-- Kartu PPID Marun Gelap (Kanan 4 Kolom) -->
+      <aside class="lg:col-span-4 bg-maroon-900 text-white rounded-xl p-7 sm:p-8 shadow-card flex flex-col gap-4 relative overflow-hidden">
+        <div class="absolute -bottom-10 -right-10 w-36 h-36 rounded-full bg-gold-400/10 pointer-events-none"></div>
+        <span class="text-xs font-extrabold tracking-[0.16em] uppercase text-gold-400">PPID KM UNY</span>
+        <h3 class="font-serif font-medium text-2xl sm:text-[28px] leading-tight">
+          Permohonan informasi publik
+        </h3>
+        <p class="text-[15px] text-[#D8C6C9] leading-relaxed">
+          Butuh data anggaran, risalah sidang, atau dokumen DPM yang belum ada di sini? Ajukan permohonan, kami balas lewat email.
+        </p>
+        <div class="pt-2">
+          <button type="button" onclick="openModal('ppidModal')" class="inline-flex items-center justify-center gap-2 min-h-[48px] px-5 rounded-lg bg-white hover:bg-gold-100 text-maroon-900 text-sm font-bold shadow-sm transition-colors cursor-pointer">
+            <span>Ajukan permohonan</span>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       10. FOOTER INSTITUSIONAL GELAP (#1E0A0E)
+       ===================================================================== -->
+  <footer id="kontak" class="bg-maroon-950 text-[#CDBBBE] text-sm">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <!-- Identitas -->
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-lg bg-maroon-900 border border-gold-400/40 p-1.5 flex items-center justify-center shrink-0">
+            <svg viewBox="0 0 64 64" class="w-full h-full" fill="none" aria-hidden="true">
+              <path d="M32 4L54 12V30C54 44.5 44.5 55.2 32 60C19.5 55.2 10 44.5 10 30V12L32 4Z" fill="#3F0C15" stroke="#D9B36C" stroke-width="2.5"/>
+              <path d="M32 12L34.1 16.5L39 17.1L35.4 20.5L36.3 25.4L32 23L27.7 25.4L28.6 20.5L25 17.1L29.9 16.5L32 12Z" fill="#D9B36C"/>
+              <rect x="20" y="30" width="4.5" height="16" rx="1" fill="#F7F4F0"/>
+              <rect x="29.75" y="28" width="4.5" height="18" rx="1" fill="#D9B36C"/>
+              <rect x="39.5" y="30" width="4.5" height="16" rx="1" fill="#F7F4F0"/>
+              <rect x="17" y="47" width="30" height="3.2" rx="1.5" fill="#D9B36C"/>
+            </svg>
+          </div>
+          <span class="font-serif text-xl text-white font-medium">DPM KM UNY</span>
+        </div>
+        <p class="leading-relaxed text-[#B9A4A8]">
+          Lembaga legislatif Keluarga Mahasiswa Universitas Negeri Yogyakarta. Menampung aspirasi, membentuk peraturan, dan mengawasi kinerja eksekutif mahasiswa.
+        </p>
+      </div>
+
+      <!-- Navigasi Profil -->
+      <nav aria-label="Tautan profil" class="flex flex-col gap-2.5">
+        <strong class="text-xs font-extrabold tracking-[0.14em] uppercase text-white mb-1">Profil</strong>
+        <a href="#profil" class="hover:text-gold-400 transition-colors">Tentang DPM</a>
+        <a href="#struktur" class="hover:text-gold-400 transition-colors">Struktur dan tupoksi</a>
+        <a href="#publikasi" class="hover:text-gold-400 transition-colors">Berita dan agenda</a>
+        <button type="button" onclick="openModal('baganModal')" class="text-left hover:text-gold-400 transition-colors cursor-pointer">Bagan organisasi</button>
+      </nav>
+
+      <!-- Navigasi Layanan -->
+      <nav aria-label="Tautan layanan" class="flex flex-col gap-2.5">
+        <strong class="text-xs font-extrabold tracking-[0.14em] uppercase text-white mb-1">Layanan</strong>
+        <a href="#aspirasi" class="hover:text-gold-400 transition-colors">Kanal &amp; lacak aspirasi</a>
+        <a href="#legislasi" class="hover:text-gold-400 transition-colors">Pantau PKM</a>
+        <a href="#dokumen" class="hover:text-gold-400 transition-colors">JDIH KM UNY</a>
+        <button type="button" onclick="openModal('ppidModal')" class="text-left hover:text-gold-400 transition-colors cursor-pointer">Permohonan informasi publik</button>
+      </nav>
+
+      <!-- Kontak -->
+      <div class="flex flex-col gap-2.5">
+        <strong class="text-xs font-extrabold tracking-[0.14em] uppercase text-white mb-1">Kontak</strong>
+        <span>dpmkm@uny.ac.id</span>
+        <span>Humas: +62 812-0000-2026</span>
+        <span class="leading-relaxed text-[#B9A4A8]">Sekretariat DPM KM UNY, Gedung Student Center Lt. 2, Karangmalang, Universitas Negeri Yogyakarta</span>
+      </div>
+    </div>
+
+    <div class="border-t border-white/10">
+      <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-wrap items-center justify-between gap-4 text-xs text-[#9F8A8E]">
+        <span>© 2026 Dewan Perwakilan Mahasiswa KM UNY. Hak cipta dilindungi.</span>
+        <div class="flex items-center gap-4">
+          <a href="#kontak" onclick="showToast('Membuka akun resmi Instagram @dpmkm_uny')" class="hover:text-gold-400 transition-colors">Instagram</a>
+          <span>·</span>
+          <a href="#kontak" onclick="showToast('Membuka kanal resmi YouTube DPM KM UNY')" class="hover:text-gold-400 transition-colors">YouTube</a>
+          <span>·</span>
+          <a href="#kontak" onclick="showToast('Membuka akun resmi TikTok @dpmkm_uny')" class="hover:text-gold-400 transition-colors">TikTok</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       MODAL-MODAL INTERAKTIF (TANPA ALERT/CONFIRM BROWSER)
+       ===================================================================== -->
+
+  <!-- 1. Modal Pencarian Instan -->
+  <div id="searchModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs p-4 sm:p-6 flex items-start justify-center pt-12 sm:pt-20" role="dialog" aria-modal="true" aria-labelledby="searchModalTitle">
+    <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-cream-300 overflow-hidden flex flex-col max-h-[82vh]">
+      <div class="p-4 border-b border-cream-200 flex items-center gap-3">
+        <svg class="w-5 h-5 text-maroon-700 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input id="globalSearchInput" type="text" oninput="runGlobalSearch()" placeholder="Cari PKM, unit struktur (Komisi/Baleg), berita, atau dokumen..." class="flex-1 text-base text-ink-900 focus:outline-none" aria-label="Kolom pencarian portal">
+        <button type="button" onclick="closeModal('searchModal')" class="px-2.5 py-1 rounded-md bg-cream-100 hover:bg-cream-200 text-xs font-bold text-ink-700 cursor-pointer">Tutup</button>
+      </div>
+      <div id="searchModalTitle" class="sr-only">Pencarian Portal DPM KM UNY</div>
+      <div id="globalSearchResults" class="p-4 overflow-y-auto divide-y divide-cream-200">
+        <!-- Diisi lewat JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Modal Kirim Aspirasi Baru -->
+  <div id="aspirasiModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs p-4 flex items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="aspirasiModalTitle">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-cream-300 overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="bg-maroon-900 text-white px-6 py-4 flex items-center justify-between">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-widest text-gold-400">Badan Aspirasi</span>
+          <h3 id="aspirasiModalTitle" class="font-serif text-xl font-medium">Sampaikan Aspirasi Mahasiswa</h3>
+        </div>
+        <button type="button" onclick="closeModal('aspirasiModal')" aria-label="Tutup modal" class="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center cursor-pointer">✕</button>
+      </div>
+
+      <div class="p-6 overflow-y-auto">
+        <form id="aspirasiForm" onsubmit="submitAspirasi(event)" class="flex flex-col gap-4">
+          <div class="flex items-center justify-between gap-2 p-3 rounded-lg bg-cream-50 border border-cream-200">
+            <label for="aspAnonim" class="text-sm font-semibold text-ink-900 cursor-pointer">Kirim secara anonim (rahasiakan identitas)</label>
+            <input id="aspAnonim" type="checkbox" onchange="toggleAnonimField()" class="w-5 h-5 accent-maroon-700 cursor-pointer">
+          </div>
+
+          <div id="aspNamaGroup" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="aspNama" class="block text-xs font-bold uppercase tracking-wider text-ink-700 mb-1">Nama Lengkap</label>
+              <input id="aspNama" type="text" required placeholder="Nama mahasiswa" class="w-full min-h-[44px] px-3.5 rounded-lg border border-cream-400 text-sm focus:outline-none focus:ring-2 focus:ring-maroon-700">
+            </div>
+            <div>
+              <label for="aspFakultas" class="block text-xs font-bold uppercase tracking-wider text-ink-700 mb-1">Fakultas</label>
+              <select id="aspFakultas" required class="w-full min-h-[44px] px-3 rounded-lg border border-cream-400 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon-700">
+                <option value="FIP">FIP — Ilmu Pendidikan</option>
+                <option value="FBSB">FBSB — Bahasa, Seni, dan Budaya</option>
+                <option value="FMIPA">FMIPA — MIPA</option>
+                <option value="FISHIPOL">FISHIPOL — Ilmu Sosial, Hukum, &amp; Politik</option>
+                <option value="FT">FT — Teknik</option>
+                <option value="FIKK">FIKK — Ilmu Keolahragaan &amp; Kesehatan</option>
+                <option value="FEB">FEB — Ekonomi dan Bisnis</option>
+                <option value="FV">FV — Vokasi</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="aspKategori" class="block text-xs font-bold uppercase tracking-wider text-ink-700 mb-1">Kategori / Arah Disposisi</label>
+            <select id="aspKategori" required class="w-full min-h-[44px] px-3 rounded-lg border border-cream-400 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon-700">
+              <option value="Komisi I · Kemahasiswaan">Kemahasiswaan, UKT &amp; Sarpras → Komisi I</option>
+              <option value="Komisi II · Sospol & Kemitraan">Sosial Politik &amp; Kemitraan → Komisi II</option>
+              <option value="Komisi III · Minat Bakat & UKM">Minat Bakat &amp; 42 UKM → Komisi III</option>
+              <option value="Badan Legislasi">Usulan Perubahan Aturan / PKM → Badan Legislasi</option>
+              <option value="Sekretaris Jenderal">Administrasi &amp; Publikasi → Sekretaris Jenderal</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="aspJudul" class="block text-xs font-bold uppercase tracking-wider text-ink-700 mb-1">Judul Singkat Aspirasi</label>
+            <input id="aspJudul" type="text" required placeholder="Contoh: Perbaikan penerangan jalur parkir SC malam hari" class="w-full min-h-[44px] px-3.5 rounded-lg border border-cream-400 text-sm focus:outline-none focus:ring-2 focus:ring-maroon-700">
+          </div>
+
+          <div>
+            <label for="aspIsi" class="block text-xs font-bold uppercase tracking-wider text-ink-700 mb-1">Uraian Aspirasi / Keluhan</label>
+            <textarea id="aspIsi" rows="4" required placeholder="Ceritakan kronologi, lokasi, dan harapan tindak lanjut..." class="w-full p-3.5 rounded-lg border border-cream-400 text-sm focus:outline-none focus:ring-2 focus:ring-maroon-700"></textarea>
+          </div>
+
+          <button type="submit" class="w-full min-h-[48px] rounded-lg bg-maroon-700 hover:bg-maroon-900 text-white font-bold text-sm transition-colors cursor-pointer">
+            Kirim &amp; Dapatkan Nomor Tiket
+          </button>
+        </form>
+
+        <!-- Panel Sukses Setelah Mengirim Aspirasi -->
+        <div id="aspirasiSuccess" class="hidden flex-col items-center text-center gap-4 py-4">
+          <div class="w-14 h-14 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl font-bold">✓</div>
+          <div>
+            <h4 class="font-serif text-2xl text-ink-900">Aspirasi Berhasil Dicatat!</h4>
+            <p class="text-sm text-ink-700 mt-1">Simpan nomor tiket berikut untuk memantau perkembangan tindak lanjut:</p>
+          </div>
+          <div class="w-full p-4 rounded-xl bg-cream-50 border border-cream-300 flex items-center justify-between gap-3">
+            <span id="generatedTicketCode" class="font-mono text-lg font-extrabold text-maroon-700">ASP-2026-0004</span>
+            <button type="button" onclick="copyGeneratedTicket()" class="px-3.5 py-2 rounded-lg bg-maroon-700 text-white text-xs font-bold cursor-pointer">Salin Tiket</button>
+          </div>
+          <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
+            <button type="button" onclick="trackNewlyCreatedTicket()" class="min-h-[44px] rounded-lg bg-maroon-900 text-white font-bold text-sm cursor-pointer">Lacak Tiket Sekarang</button>
+            <button type="button" onclick="resetAspirasiModal()" class="min-h-[44px] rounded-lg border border-cream-400 text-ink-900 font-bold text-sm cursor-pointer">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Modal Bagan Hierarki Struktur Organisasi -->
+  <div id="baganModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs p-4 flex items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="baganModalTitle">
+    <div class="bg-white w-full max-w-4xl rounded-2xl shadow-2xl border border-cream-300 overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="bg-maroon-900 text-white px-6 py-4 flex items-center justify-between">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-widest text-gold-400">Hierarki Kelembagaan</span>
+          <h3 id="baganModalTitle" class="font-serif text-xl font-medium">Bagan Struktur DPM KM UNY</h3>
+        </div>
+        <button type="button" onclick="closeModal('baganModal')" aria-label="Tutup bagan" class="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center cursor-pointer">✕</button>
+      </div>
+
+      <div class="p-6 overflow-y-auto bg-cream-50">
+        <p class="text-xs text-ink-500 text-center mb-5">Ketuk salah satu kotak unit di bawah ini untuk langsung membuka rincian tugas pokoknya.</p>
+
+        <!-- Tingkat 1: Sidang Paripurna -->
+        <div class="flex flex-col items-center">
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <button type="button" onclick="jumpToUnitFromBagan('paripurna')" class="px-6 py-3 rounded-xl bg-maroon-900 text-white font-bold text-sm shadow-md hover:bg-maroon-700 transition-colors cursor-pointer">
+              Sidang Paripurna <span class="block text-[11px] font-normal text-gold-400">Forum Keputusan Tertinggi</span>
+            </button>
+            <button type="button" onclick="jumpToUnitFromBagan('pansus')" class="px-4 py-3 rounded-xl bg-white border border-dashed border-maroon-700 text-maroon-700 font-bold text-sm hover:bg-maroon-50 transition-colors cursor-pointer">
+              Panitia Khusus <span class="block text-[11px] font-normal text-ink-500">Ad-hoc / Sementara</span>
+            </button>
+          </div>
+          <div class="w-0.5 h-6 bg-cream-400"></div>
+
+          <!-- Tingkat 2: Ketua -->
+          <button type="button" onclick="jumpToUnitFromBagan('ketua')" class="px-7 py-3 rounded-xl bg-maroon-700 text-white font-bold text-sm shadow-sm hover:bg-maroon-900 transition-colors cursor-pointer">
+            Ketua DPM KM UNY
+          </button>
+          <div class="w-0.5 h-6 bg-cream-400"></div>
+
+          <!-- Cabang Wakil Ketua & Sekjen -->
+          <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 border-t-2 border-cream-400">
+            <!-- Jalur Wakil Ketua -> AKD -->
+            <div class="bg-white rounded-xl border border-cream-300 p-4 flex flex-col gap-3">
+              <button type="button" onclick="jumpToUnitFromBagan('wakil')" class="w-full py-2.5 px-4 rounded-lg bg-maroon-50 border border-maroon-700/20 text-maroon-900 font-bold text-sm hover:bg-maroon-700 hover:text-white transition-colors cursor-pointer">
+                Wakil Ketua <span class="block text-[11px] font-normal opacity-80">Koordinator Alat Kelengkapan</span>
+              </button>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <button type="button" onclick="jumpToUnitFromBagan('kom1')" class="p-2.5 rounded-lg border border-cream-300 hover:border-maroon-700 text-left text-xs font-bold text-ink-900 cursor-pointer">Komisi I <span class="block font-normal text-ink-500">Kemahasiswaan</span></button>
+                <button type="button" onclick="jumpToUnitFromBagan('kom2')" class="p-2.5 rounded-lg border border-cream-300 hover:border-maroon-700 text-left text-xs font-bold text-ink-900 cursor-pointer">Komisi II <span class="block font-normal text-ink-500">Sospol &amp; Kemitraan</span></button>
+                <button type="button" onclick="jumpToUnitFromBagan('kom3')" class="p-2.5 rounded-lg border border-cream-300 hover:border-maroon-700 text-left text-xs font-bold text-ink-900 cursor-pointer">Komisi III <span class="block font-normal text-ink-500">Minat Bakat &amp; UKM</span></button>
+                <button type="button" onclick="jumpToUnitFromBagan('baleg')" class="p-2.5 rounded-lg border border-gold-400/60 bg-gold-100/40 hover:border-maroon-700 text-left text-xs font-bold text-ink-900 cursor-pointer">Badan Legislasi <span class="block font-normal text-ink-500">Perawatan PKM</span></button>
+                <button type="button" onclick="jumpToUnitFromBagan('ba')" class="sm:col-span-2 p-2.5 rounded-lg border border-gold-400/60 bg-gold-100/40 hover:border-maroon-700 text-left text-xs font-bold text-ink-900 cursor-pointer">Badan Aspirasi <span class="block font-normal text-ink-500">Kanal Suara Mahasiswa</span></button>
+              </div>
+            </div>
+
+            <!-- Jalur Sekjen -> 3 Bagian -->
+            <div class="bg-white rounded-xl border border-cream-300 p-4 flex flex-col gap-3">
+              <button type="button" onclick="jumpToUnitFromBagan('sekjen')" class="w-full py-2.5 px-4 rounded-lg bg-maroon-50 border border-maroon-700/20 text-maroon-900 font-bold text-sm hover:bg-maroon-700 hover:text-white transition-colors cursor-pointer">
+                Sekretaris Jenderal <span class="block text-[11px] font-normal opacity-80">Pengelola Dapur Lembaga</span>
+              </button>
+              <div class="flex flex-col gap-2">
+                <button type="button" onclick="jumpToUnitFromBagan('sekre')" class="p-2.5 rounded-lg border border-cream-300 hover:border-maroon-700 text-left text-xs font-bold text-ink-900 cursor-pointer">Bagian Sekretariat <span class="block font-normal text-ink-500">Administrasi, persidangan, arsip &amp; kas</span></button>
+                <button type="button" onclick="jumpToUnitFromBagan('humas')" class="p-2.5 rounded-lg border border-cream-300 hover:border-maroon-700 text-left text-xs font-bold text-ink-900 cursor-pointer">Bagian Humas dan Media <span class="block font-normal text-ink-500">Website, publikasi &amp; sidang terbuka</span></button>
+                <button type="button" onclick="jumpToUnitFromBagan('po')" class="p-2.5 rounded-lg border border-cream-300 hover:border-maroon-700 text-left text-xs font-bold text-ink-900 cursor-pointer">Bagian Pengembangan Organisasi <span class="block font-normal text-ink-500">Upgrading, cek suasana &amp; kaderisasi</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Modal Permohonan Informasi Publik (PPID) -->
+  <div id="ppidModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs p-4 flex items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="ppidModalTitle">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-cream-300 overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="bg-maroon-900 text-white px-6 py-4 flex items-center justify-between">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-widest text-gold-400">Layanan PPID KM UNY</span>
+          <h3 id="ppidModalTitle" class="font-serif text-xl font-medium">Permohonan Informasi Publik</h3>
+        </div>
+        <button type="button" onclick="closeModal('ppidModal')" aria-label="Tutup modal PPID" class="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center cursor-pointer">✕</button>
+      </div>
+      <div class="p-6 overflow-y-auto">
+        <form id="ppidForm" onsubmit="submitPpid(event)" class="flex flex-col gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="ppidNama" class="block text-xs font-bold uppercase tracking-wider text-ink-700 mb-1">Nama Pemohon</label>
+              <input id="ppidNama" type="text" required placeholder="Nama lengkap" class="w-full min-h-[44px] px-3.5 rounded-lg border border-cream-400 text-sm focus:outline-none focus:ring-2 focus:ring-maroon-700">
+            </div>
+            <div>
+              <label for="ppidEmail" class="block text-xs font-bold uppercase tracking-wider text-ink-700 mb-1">Email UNY / Aktif</label>
+              <input id="ppidEmail" type="email" required placeholder="nama@student.uny.ac.id" class="w-full min-h-[44px] px-3.5 rounded-lg border border-cream-400 text-sm focus:outline-none focus:ring-2 focus:ring-maroon-700">
+            </div>
+          </div>
+          <div>
+            <label for="ppidDokumen" class="block text-xs font-bold uppercase tracking-wider text-ink-700 mb-1">Informasi / Dokumen yang Diminta</label>
+            <input id="ppidDokumen" type="text" required placeholder="Contoh: Risalah Rapat Pengawasan Anggaran Semester Ganjil" class="w-full min-h-[44px] px-3.5 rounded-lg border border-cream-400 text-sm focus:outline-none focus:ring-2 focus:ring-maroon-700">
+          </div>
+          <div>
+            <label for="ppidTujuan" class="block text-xs font-bold uppercase tracking-wider text-ink-700 mb-1">Tujuan Penggunaan Informasi</label>
+            <textarea id="ppidTujuan" rows="3" required placeholder="Kajian organisasi, peliputan pers mahasiswa, penelitian, dll." class="w-full p-3.5 rounded-lg border border-cream-400 text-sm focus:outline-none focus:ring-2 focus:ring-maroon-700"></textarea>
+          </div>
+          <button type="submit" class="w-full min-h-[48px] rounded-lg bg-maroon-700 hover:bg-maroon-900 text-white font-bold text-sm transition-colors cursor-pointer">
+            Kirim Permohonan PPID
+          </button>
+        </form>
+
+        <div id="ppidSuccess" class="hidden flex-col items-center text-center gap-3 py-4">
+          <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl font-bold">✓</div>
+          <h4 class="font-serif text-2xl text-ink-900">Permohonan Terdaftar</h4>
+          <p class="text-sm text-ink-700">Nomor registrasi PPID kamu adalah:</p>
+          <span id="ppidRegCode" class="px-4 py-2 rounded-lg bg-cream-100 border border-cream-300 font-mono text-base font-extrabold text-maroon-700">PPID-2026-0101</span>
+          <p class="text-xs text-ink-500">Bagian Sekretariat akan membalas dokumen melalui email maksimal 3 hari kerja.</p>
+          <button type="button" onclick="resetPpidModal()" class="mt-2 min-h-[44px] px-6 rounded-lg bg-maroon-900 text-white font-bold text-sm cursor-pointer">Selesai</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Modal Login Pengurus (Demo) -->
+  <div id="loginModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs p-4 flex items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-cream-300 overflow-hidden">
+      <div class="bg-maroon-900 text-white px-6 py-4 flex items-center justify-between">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-widest text-gold-400">Sistem Internal</span>
+          <h3 id="loginModalTitle" class="font-serif text-xl font-medium">Masuk Pengurus DPM KM UNY</h3>
+        </div>
+        <button type="button" onclick="closeModal('loginModal')" aria-label="Tutup login" class="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center cursor-pointer">✕</button>
+      </div>
+      <form onsubmit="submitLoginDemo(event)" class="p-6 flex flex-col gap-4">
+        <p class="text-xs text-ink-500 bg-cream-50 p-3 rounded-lg border border-cream-200">
+          Portal khusus delegasi fakultas dan Staf Ahli untuk pembaruan Matriks Keorganisasian, disposisi aspirasi, dan arsip persidangan.
+        </p>
+        <div>
+          <label for="loginNim" class="block text-xs font-bold uppercase tracking-wider text-ink-700 mb-1">NIM / Email Pengurus</label>
+          <input id="loginNim" type="text" required placeholder="pengurus@dpmkm.uny.ac.id" class="w-full min-h-[44px] px-3.5 rounded-lg border border-cream-400 text-sm focus:outline-none focus:ring-2 focus:ring-maroon-700">
+        </div>
+        <div>
+          <label for="loginPass" class="block text-xs font-bold uppercase tracking-wider text-ink-700 mb-1">Kata Sandi</label>
+          <input id="loginPass" type="password" required placeholder="••••••••" class="w-full min-h-[44px] px-3.5 rounded-lg border border-cream-400 text-sm focus:outline-none focus:ring-2 focus:ring-maroon-700">
+        </div>
+        <button type="submit" class="w-full min-h-[46px] rounded-lg bg-maroon-700 hover:bg-maroon-900 text-white font-bold text-sm transition-colors cursor-pointer">
+          Masuk ke Dasbor Pengurus
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 6. Modal Detail Generik (Untuk Legislasi PKM, Berita, Agenda, & Pratinjau Dokumen) -->
+  <div id="detailModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs p-4 flex items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="detailModalTitle">
+    <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-cream-300 overflow-hidden flex flex-col max-h-[88vh]">
+      <div class="px-6 py-4 border-b border-cream-200 flex items-start justify-between gap-4 bg-cream-50">
+        <div>
+          <span id="detailModalTag" class="text-[11px] font-extrabold uppercase tracking-[0.14em] text-gold-700">Informasi</span>
+          <h3 id="detailModalTitle" class="font-serif text-xl sm:text-2xl font-medium text-ink-900 mt-0.5 leading-snug">Judul Detail</h3>
+        </div>
+        <button type="button" onclick="closeModal('detailModal')" aria-label="Tutup detail" class="w-9 h-9 rounded-lg bg-white border border-cream-300 hover:bg-cream-200 text-ink-700 flex items-center justify-center shrink-0 cursor-pointer">✕</button>
+      </div>
+      <div id="detailModalBody" class="p-6 overflow-y-auto text-[15px] text-ink-700 leading-relaxed flex flex-col gap-4">
+        <!-- Diisi lewat JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" role="status" aria-live="polite" class="fixed left-1/2 bottom-6 -translate-x-1/2 translate-y-24 opacity-0 pointer-events-none z-50 bg-maroon-950 text-white px-5 py-3 rounded-full text-sm font-semibold shadow-xl border border-gold-400/30 transition-all duration-300 max-w-[90vw] text-center">
+    Notifikasi
+  </div>
+
+  <!-- =====================================================================
+       JAVASCRIPT MURNI: DATA ASLI DPM KM UNY & SEMUA LOGIKA INTERAKTIF
+       ===================================================================== -->
+  <script>
+    /* ---------------------------------------------------------------------
+       A. DATA KONTEN RESMI DPM KM UNY
+       --------------------------------------------------------------------- */
+
+    // 1. Data 13 Unit Struktur & Tupoksi (AKD)
+    const UNIT_GROUPS = [
+      { label: 'Forum', ids: ['paripurna', 'pansus'] },
+      { label: 'Pimpinan', ids: ['ketua', 'wakil', 'sekjen'] },
+      { label: 'Alat Kelengkapan', ids: ['kom1', 'kom2', 'kom3', 'baleg', 'ba'] },
+      { label: 'Sekretariat Jenderal', ids: ['sekre', 'humas', 'po'] }
+    ];
+
+    const UNITS = {
+      paripurna: {
+        category: 'Forum',
+        title: 'Sidang Paripurna',
+        summary: 'Forum pengambilan keputusan tertinggi DPM KM UNY.',
+        listTitle: 'Tugas pokok',
+        items: [
+          'Memilih Ketua DPM dari delegasi fakultas',
+          'Mengesahkan PKM lewat Sidang Pengesahan Tingkat II',
+          'Membentuk Panitia Khusus dan menerima laporannya',
+          'Menerima laporan kinerja pimpinan dan alat kelengkapan'
+        ],
+        meta: [
+          { k: 'Peserta', v: 'Seluruh delegasi fakultas dengan hak suara' },
+          { k: 'Dipimpin oleh', v: 'Ketua DPM' }
+        ]
+      },
+      pansus: {
+        category: 'Forum · sementara',
+        title: 'Panitia Khusus',
+        summary: 'Dibentuk untuk isu tertentu dan bubar setelah melapor ke Sidang Paripurna.',
+        listTitle: 'Contoh pansus',
+        items: [
+          'Pansus Pemilwa: mengawasi KPU dan Bawaslu selama tahapan',
+          'Pansus PKKMB: mengawasi PKKMB tingkat universitas dan membuka posko aduan',
+          'Pansus hak angket: menyelidiki dugaan pelanggaran berat BEM KM UNY'
+        ],
+        meta: [
+          { k: 'Dibentuk oleh', v: 'Sidang Paripurna' },
+          { k: 'Anggota', v: 'Ditunjuk dari unit yang sudah ada' },
+          { k: 'Hasil kerja', v: 'Laporan akhir di Sidang Paripurna' }
+        ]
+      },
+      ketua: {
+        category: 'Pimpinan',
+        title: 'Ketua',
+        summary: 'Memimpin lembaga dan menjaga arah gerak DPM KM UNY.',
+        listTitle: 'Tugas pokok',
+        items: [
+          'Memimpin lembaga dan Sidang Paripurna',
+          'Mewakili DPM ke rektorat, BEM KM UNY, dan pihak luar',
+          'Menandatangani PKM bersama Ketua BEM, keputusan DPM, dan surat keluar',
+          'Membuka rekrutmen Staf Ahli setelah Sidang Paripurna',
+          'Membimbing sikap dan etika anggota secara langsung'
+        ],
+        meta: [
+          { k: 'Lapor ke', v: 'Sidang Paripurna' },
+          { k: 'Dipilih oleh', v: 'Sidang Paripurna dari delegasi fakultas' },
+          { k: 'Pejabat', v: '[NAMA KETUA DPM]' }
+        ]
+      },
+      wakil: {
+        category: 'Pimpinan',
+        title: 'Wakil Ketua',
+        summary: 'Penggerak kerja seluruh alat kelengkapan.',
+        listTitle: 'Tugas pokok',
+        items: [
+          'Mengoordinasikan Komisi I, II, III, Badan Legislasi, dan Badan Aspirasi',
+          'Memimpin rapat koordinasi bulanan bersama kepala unit',
+          'Menilai kinerja unit dan memastikan disposisi berjalan',
+          'Menggantikan Ketua saat berhalangan'
+        ],
+        meta: [
+          { k: 'Lapor ke', v: 'Ketua' },
+          { k: 'Membawahi', v: 'Komisi I sampai III, Badan Legislasi, Badan Aspirasi' },
+          { k: 'Pejabat', v: '[NAMA WAKIL KETUA]' }
+        ]
+      },
+      sekjen: {
+        category: 'Pimpinan',
+        title: 'Sekretaris Jenderal',
+        summary: 'Mengelola dapur lembaga: administrasi, publikasi, dan pengembangan anggota.',
+        listTitle: 'Tugas pokok',
+        items: [
+          'Memimpin Bagian Sekretariat, Bagian Humas dan Media, serta Bagian Pengembangan Organisasi',
+          'Mengelola administrasi dan keuangan internal DPM',
+          'Mengawal publikasi hasil sidang dan PKM',
+          'Memastikan keputusan rapat tercatat dan ditindaklanjuti'
+        ],
+        meta: [
+          { k: 'Lapor ke', v: 'Ketua' },
+          { k: 'Membawahi', v: '3 bagian, masing-masing dipimpin Kabag' },
+          { k: 'Pejabat', v: '[NAMA SEKRETARIS JENDERAL]' }
+        ]
+      },
+      kom1: {
+        category: 'Komisi',
+        title: 'Komisi I · Kemahasiswaan',
+        summary: 'Mitra kerja BEM KM UNY Bidang Kemahasiswaan.',
+        listTitle: 'Tugas pokok',
+        items: [
+          'Mengawasi program kerja dan anggaran bidang mitra',
+          'Tim lapangan: cek lapangan, angket evaluasi mitra, bank data capaian',
+          'Tim balik layar: menelaah RAB, LPJ keuangan, dan survei harga pasar',
+          'Menggelar RDP dan melacak tindak lanjut rekomendasinya',
+          'Meneruskan usulan perbaikan aturan ke Badan Legislasi'
+        ],
+        meta: [
+          { k: 'Lapor ke', v: 'Wakil Ketua' },
+          { k: 'Susunan', v: 'Ketua Komisi, Sekretaris Komisi, tim lapangan, tim balik layar' },
+          { k: 'Ketua Komisi', v: '[NAMA KETUA KOMISI I]' }
+        ]
+      },
+      kom2: {
+        category: 'Komisi',
+        title: 'Komisi II · Sosial Politik dan Kemitraan',
+        summary: 'Mitra kerja BEM KM UNY Bidang Sosial Politik dan Kemitraan.',
+        listTitle: 'Tugas pokok',
+        items: [
+          'Mengawasi program kerja dan anggaran bidang mitra',
+          'Tim lapangan: cek lapangan, angket evaluasi mitra, bank data capaian',
+          'Tim balik layar: menelaah RAB, LPJ keuangan, dan survei harga pasar',
+          'Menggelar RDP dan melacak tindak lanjut rekomendasinya',
+          'Meneruskan usulan perbaikan aturan ke Badan Legislasi'
+        ],
+        meta: [
+          { k: 'Lapor ke', v: 'Wakil Ketua' },
+          { k: 'Susunan', v: 'Ketua Komisi, Sekretaris Komisi, tim lapangan, tim balik layar' },
+          { k: 'Ketua Komisi', v: '[NAMA KETUA KOMISI II]' }
+        ]
+      },
+      kom3: {
+        category: 'Komisi',
+        title: 'Komisi III · Minat dan Bakat',
+        summary: 'Mengawasi BEM KM UNY Bidang Minat dan Bakat, mendampingi 42 UKM.',
+        listTitle: 'Tugas pokok',
+        items: [
+          'Mengawasi program kerja dan anggaran BEM Bidang Minat dan Bakat',
+          'Memetakan dan mengunjungi sekretariat UKM',
+          'Menempatkan anggota sebagai penghubung tiap rumpun UKM',
+          'Menggelar RDP Klaster UKM dan audiensi UKM bersama Ditmawa',
+          'Pendekatan pendampingan: tanpa rapor atau LPJ UKM'
+        ],
+        meta: [
+          { k: 'Lapor ke', v: 'Wakil Ketua' },
+          { k: 'Mitra', v: 'BEM Bidang Minat dan Bakat, 42 UKM' },
+          { k: 'Ketua Komisi', v: '[NAMA KETUA KOMISI III]' }
+        ]
+      },
+      baleg: {
+        category: 'Badan',
+        title: 'Badan Legislasi',
+        summary: 'Merawat dan memperbarui PKM KM UNY, cukup disahkan sekali lalu diamandemen bila perlu.',
+        listTitle: 'Tugas pokok',
+        items: [
+          'Menyusun Matriks Keorganisasian tiap periode',
+          'Mengawal pembahasan: DIM, RDP Tingkat I, Tim Perumus, Sidang Pengesahan Tingkat II',
+          'Menjawab setiap masukan di Matriks Masukan beserta alasannya',
+          'Membuka klinik PKM dan mengecek pelaksanaan PKM',
+          'Menggelar Akademi Legislator dan PARLEMNAS'
+        ],
+        meta: [
+          { k: 'Lapor ke', v: 'Wakil Ketua' },
+          { k: 'Susunan', v: '3 sampai 4 delegasi dan 5 Staf Ahli' },
+          { k: 'Program unggulan', v: 'Akademi Legislator, PARLEMNAS' }
+        ]
+      },
+      ba: {
+        category: 'Badan',
+        title: 'Badan Aspirasi',
+        summary: 'Pintu masuk suara mahasiswa ke DPM.',
+        listTitle: 'Tugas pokok',
+        items: [
+          'Mengelola kanal aspirasi: formulir daring, kotak aduan, dan Aspirasi Keliling',
+          'Mencatat aspirasi dan memberi tanda terima paling lambat 3 hari',
+          'Memilah aspirasi ke komisi terkait, Badan Legislasi, atau DPM fakultas',
+          'Mengawal isu kampus seperti UKT dan sarpras bersama BEM KM UNY',
+          'Memberi kabar hasil ke pengadu dan merekap tiap semester'
+        ],
+        meta: [
+          { k: 'Lapor ke', v: 'Wakil Ketua' },
+          { k: 'Program unggulan', v: 'Aspirasi Keliling' },
+          { k: 'Ketua Badan', v: '[NAMA KETUA BADAN ASPIRASI]' }
+        ]
+      },
+      sekre: {
+        category: 'Bagian di bawah Sekretaris Jenderal',
+        title: 'Bagian Sekretariat',
+        summary: 'Administrasi, persidangan, arsip, dan kas internal DPM.',
+        listTitle: 'Program kerja',
+        items: [
+          'Layanan Satu Pintu',
+          'Paket Template Naskah Dinas',
+          'Arsip Digital dan Register',
+          'Risalah dan Kuorum Cepat',
+          'Laporan Kas Bulanan',
+          'Inventaris dan Serah Terima'
+        ],
+        meta: [
+          { k: 'Lapor ke', v: 'Sekretaris Jenderal' },
+          { k: 'Kabag', v: '[NAMA KABAG SEKRETARIAT]' }
+        ]
+      },
+      humas: {
+        category: 'Bagian di bawah Sekretaris Jenderal',
+        title: 'Bagian Humas dan Media',
+        summary: 'Membuat kerja DPM terlihat dan mudah dipahami mahasiswa.',
+        listTitle: 'Program kerja',
+        items: [
+          'Website DPM',
+          'Kalender Konten',
+          'PKM dalam 1 Menit',
+          'Sidang Terbuka',
+          'UKM Spotlight',
+          'Arsip Visual dan Laporan Semester'
+        ],
+        meta: [
+          { k: 'Lapor ke', v: 'Sekretaris Jenderal' },
+          { k: 'Kabag', v: '[NAMA KABAG HUMAS & MEDIA]' }
+        ]
+      },
+      po: {
+        category: 'Bagian di bawah Sekretaris Jenderal',
+        title: 'Bagian Pengembangan Organisasi',
+        summary: 'Memastikan anggota paham tupoksi, kompak, dan terus berkembang.',
+        listTitle: 'Program kerja',
+        items: [
+          'Upgrading DPM I dan II',
+          'Sharing Session bulanan',
+          'Malam Keakraban',
+          'Cek Suasana, survei anonim tiap 2 bulan',
+          'Serah Terima dan Evaluasi Semester',
+          'Legislator Muda'
+        ],
+        meta: [
+          { k: 'Lapor ke', v: 'Sekretaris Jenderal' },
+          { k: 'Susunan', v: '1 delegasi sebagai Kabag, dibantu 2 sampai 3 Staf Ahli' },
+          { k: 'Kabag', v: '[NAMA KABAG PO]' }
+        ]
+      }
+    };
+
+    // 2. Data Legislasi (Matriks Keorganisasian)
+    const LEGISLASI_DATA = [
+      {
+        title: 'PKM tentang Pemilihan Umum Mahasiswa',
+        subtitle: 'PKM KM UNY Nomor 04 Tahun 2026',
+        stageStep: 5,
+        stageLabel: 'Sidang Pengesahan Tingkat II',
+        status: 'Berlaku',
+        actionLabel: 'Detail / Unduh',
+        holder: 'Badan Legislasi & Sidang Paripurna',
+        summary: 'Mengatur asas penyelenggaraan, struktur KPU dan Bawaslu KM UNY, syarat pencalonan, mekanisme kampanye terbuka, serta pemungutan dan rekapitulasi suara Pemilwa KM UNY 2026.',
+        hasFile: true
+      },
+      {
+        title: 'Amandemen PKM Aspirasi dan Advokasi',
+        subtitle: 'Pemegang berkas: Tim Perumus Baleg',
+        stageStep: 2,
+        stageLabel: 'Penyusunan DIM',
+        status: 'Dibahas',
+        actionLabel: 'Lihat Draf',
+        holder: 'Badan Legislasi bersama Badan Aspirasi',
+        summary: 'Memperkuat batas waktu tindak lanjut aspirasi mahasiswa (SLA 3 hari tanda terima), integrasi sistem pelacakan tiket digital, dan koordinasi aspirasi lintas DPM Fakultas.',
+        hasFile: true
+      },
+      {
+        title: 'Amandemen PKM Pengawasan',
+        subtitle: 'Pemegang berkas: Komisi I–III & Baleg',
+        stageStep: 1,
+        stageLabel: 'Masuk Matriks Keorganisasian',
+        status: 'Terjadwal',
+        actionLabel: 'Lihat Rencana',
+        holder: 'Badan Legislasi',
+        summary: 'Menyelaraskan mekanisme Rapat Dengar Pendapat (RDP), standar telaah RAB dan LPJ keuangan mitra, serta tata cara pemantauan rekomendasi pengawasan.',
+        hasFile: false
+      },
+      {
+        title: 'PKM PKKMB Standar Minimum',
+        subtitle: 'Butuh persetujuan 2/3 DPM fakultas lewat Forum Legislatif KM',
+        stageStep: 1,
+        stageLabel: 'Masuk Matriks Keorganisasian',
+        status: 'Terjadwal',
+        actionLabel: 'Lihat Rencana',
+        holder: 'Forum Legislatif KM & Badan Legislasi',
+        summary: 'Menetapkan standar minimum pelaksanaan PKKMB yang ramah mahasiswa baru, transparan, bebas perpeloncoan, serta mekanisme posko aduan terpadu.',
+        hasFile: false
+      }
+    ];
+
+    // 3. Data Awal Aspirasi (Disimpan di localStorage agar tambahan baru bertahan)
+    const DEFAULT_ASPIRASI = [
+      {
+        id: 'ASP-2026-0001',
+        nama: 'Raka Pratama (FT)',
+        kategori: 'Komisi I · Kemahasiswaan',
+        judul: 'Transparansi jadwal dan mekanisme banding UKT Semester Genap',
+        isi: 'Mahasiswa membutuhkan kejelasan alur serta tenggat waktu pengajuan penyesuaian UKT agar tidak berbenturan dengan jadwal KRS.',
+        tanggal: '05 November 2026',
+        stage: 4, // 1=Diterima, 2=Dipilah, 3=Ditindaklanjuti, 4=Tuntas
+        statusText: 'Tuntas',
+        catatan: 'Telah ditindaklanjuti melalui RDP Komisi I bersama BEM KM UNY & audiensi Ditmawa. Surat edaran penyesuaian jadwal banding UKT telah diterbitkan dan hasil dikirimkan ke pengadu.'
+      },
+      {
+        id: 'ASP-2026-0002',
+        nama: 'Anonim (FMIPA)',
+        kategori: 'Komisi III · Minat Bakat & UKM',
+        judul: 'Usulan perpanjangan jam operasional ruang latihan UKM di Student Center',
+        isi: 'Beberapa UKM seni dan olahraga kesulitan jadwal latihan sore hingga malam hari karena keterbatasan izin pemakaian ruang.',
+        tanggal: '18 November 2026',
+        stage: 3,
+        statusText: 'Ditindaklanjuti',
+        catatan: 'Sudah dipilah ke Komisi III dan masuk dalam agenda pembahasan RDP Klaster UKM tanggal 15 Desember 2026 bersama Ditmawa.'
+      },
+      {
+        id: 'ASP-2026-0003',
+        nama: 'Nadia Kusuma (FISHIPOL)',
+        kategori: 'Badan Legislasi',
+        judul: 'Masukan pasal keterbukaan dana kampanye pada draf aturan turunan Pemilwa',
+        isi: 'Menyarankan agar setiap pasangan calon wajib melaporkan batas maksimal dan sumber dana kampanye secara terbuka di portal.',
+        tanggal: '24 November 2026',
+        stage: 2,
+        statusText: 'Dipilah',
+        catatan: 'Tanda terima telah dikirimkan. Berkas diteruskan ke Badan Legislasi dan Pansus Pemilwa sebagai bahan telaah aturan teknis.'
+      }
+    ];
+
+    // 4. Data Berita Publikasi
+    const NEWS_DATA = [
+      {
+        category: 'Legislasi',
+        date: '20 November 2026',
+        title: 'Sidang Paripurna Sahkan PKM KM UNY Nomor 04 Tahun 2026 tentang Pemilwa',
+        author: 'Bagian Humas dan Media',
+        paragraphs: [
+          'Dewan Perwakilan Mahasiswa Keluarga Mahasiswa Universitas Negeri Yogyakarta (DPM KM UNY) secara resmi mengesahkan Peraturan Keluarga Mahasiswa (PKM) Nomor 04 Tahun 2026 tentang Pemilihan Umum Mahasiswa melalui Sidang Pengesahan Tingkat II di Ruang Sidang Utama Student Center UNY.',
+          'Pengesahan ini merupakan puncak rangkaian panjang pembahasan yang dimulai dari penyusunan Daftar Inventarisasi Masalah (DIM), Rapat Dengar Pendapat Tingkat I bersama BEM KM UNY dan perwakilan DPM Fakultas, hingga penyelarasan naskah oleh Tim Perumus.',
+          'Beberapa poin pembaruan penting mencakup penegasan independensi KPU dan Bawaslu KM UNY, keterbukaan syarat administratif calon, serta pengawasan tahapan pemungutan suara secara transparan dan akuntabel.'
+        ]
+      },
+      {
+        category: 'PARLEMNAS',
+        date: '14 November 2026',
+        title: 'Pendaftaran Pekan Parlemen Mahasiswa Nasional (PARLEMNAS) Resmi Dibuka',
+        author: 'Badan Legislasi DPM KM UNY',
+        paragraphs: [
+          'Badan Legislasi DPM KM UNY kembali menggelar Pekan Parlemen Mahasiswa Nasional (PARLEMNAS) sebagai ruang adu gagasan dan penguatan kapasitas legislatif mahasiswa tingkat nasional.',
+          'Rangkaian kegiatan mencakup Lomba Legal Drafting, Debat Parlemen Mahasiswa, Lomba Esai Kebijakan Kampus, dan ditutup dengan Seminar Nasional Kelegislatifan.',
+          'Pendaftaran terbuka bagi seluruh mahasiswa aktif perguruan tinggi di Indonesia melalui tautan resmi yang dipublikasikan di kanal media sosial DPM KM UNY.'
+        ]
+      },
+      {
+        category: 'Aspirasi',
+        date: '08 November 2026',
+        title: 'Aspirasi Keliling Badan Aspirasi Serap 64 Usulan Sarpras dan UKT di 8 Fakultas',
+        author: 'Badan Aspirasi DPM KM UNY',
+        paragraphs: [
+          'Selama dua pekan terakhir, Badan Aspirasi DPM KM UNY menyelenggarakan program Aspirasi Keliling dengan membuka posko dialog langsung di delapan fakultas Universitas Negeri Yogyakarta.',
+          'Sebanyak 64 aspirasi berhasil dihimpun, didominasi oleh isu penyesuaian UKT, pemeliharaan sarana prasarana ruang kelas dan parkir, serta dukungan pendanaan kegiatan UKM.',
+          'Seluruh masukan telah diberikan nomor tiket resmi dan didisposisikan kepada Komisi I, Komisi II, Komisi III, maupun Badan Legislasi sesuai bidang kerjanya untuk segera ditindaklanjuti.'
+        ]
+      }
+    ];
+
+    // 5. Data Dokumen JDIH KM UNY
+    const DOCUMENTS_DATA = [
+      {
+        type: 'PKM',
+        title: 'PKM KM UNY Nomor 04 Tahun 2026 tentang Pemilwa',
+        year: '2026',
+        size: '420 KB · PDF',
+        summary: 'Peraturan induk penyelenggaraan Pemilihan Umum Mahasiswa Keluarga Mahasiswa UNY Tahun 2026, mencakup ketentuan KPU, Bawaslu, tahapan, kampanye, dan sengketa pemilu.'
+      },
+      {
+        type: 'PKM',
+        title: 'PKM Aspirasi dan Advokasi KM UNY',
+        year: '2025',
+        size: '310 KB · PDF',
+        summary: 'Mengatur tata cara penyampaian, pencatatan tiket, disposisi lintas komisi, dan kewajiban pelaporan tindak lanjut aspirasi mahasiswa di lingkungan KM UNY.'
+      },
+      {
+        type: 'PKM',
+        title: 'PKM Pengawasan KM UNY',
+        year: '2025',
+        size: '355 KB · PDF',
+        summary: 'Pedoman pelaksanaan fungsi pengawasan DPM KM UNY terhadap program kerja, realisasi anggaran (RAB/LPJ), dan pelaksanaan RDP bersama BEM KM UNY.'
+      },
+      {
+        type: 'RISALAH',
+        title: 'Risalah Sidang Paripurna 20 November 2026',
+        year: '2026',
+        size: '280 KB · PDF',
+        summary: 'Catatan resmi jalannya persidangan, daftar kehadiran kuorum delegasi fakultas, pandangan mini, dan ketetapan pengesahan PKM Pemilwa 2026.'
+      },
+      {
+        type: 'LAPORAN',
+        title: 'Laporan Semester DPM KM UNY Periode 2026',
+        year: '2026',
+        size: '1.1 MB · PDF',
+        summary: 'Rekapitulasi capaian legislasi, pengawasan komisi, serapan aspirasi mahasiswa, serta laporan kas internal DPM KM UNY semester berjalan.'
+      }
+    ];
+
+    /* ---------------------------------------------------------------------
+       B. STATE APLIKASI & STORAGE AMAN
+       --------------------------------------------------------------------- */
+    let currentHeroIdx = 0;
+    let heroTimer = null;
+    let selectedUnitId = 'paripurna';
+    let currentLegislasiFilter = 'Semua';
+    let currentDocFilter = 'Semua';
+    let lastCreatedTicketId = '';
+    let aspirasiList = loadAspirasiData();
+
+    function loadAspirasiData() {
+      try {
+        const saved = localStorage.getItem('dpm_uny_aspirasi_v1');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch (_) {}
+      return JSON.parse(JSON.stringify(DEFAULT_ASPIRASI));
+    }
+
+    function saveAspirasiData() {
+      try {
+        localStorage.setItem('dpm_uny_aspirasi_v1', JSON.stringify(aspirasiList));
+      } catch (_) {}
+    }
+
+    /* ---------------------------------------------------------------------
+       C. HERO CAROUSEL (AUTO-PLAY 6 DETIK + MANUAL + SWIPE HP)
+       --------------------------------------------------------------------- */
+    function renderHeroControls() {
+      const barsContainer = document.getElementById('heroBars');
+      const counterEl = document.getElementById('heroCounter');
+      const track = document.getElementById('heroTrack');
+
+      track.style.transform = `translateX(-${currentHeroIdx * 100}%)`;
+      counterEl.textContent = '0' + (currentHeroIdx + 1);
+
+      barsContainer.innerHTML = [0, 1, 2, 3].map((i) => {
+        const active = i === currentHeroIdx;
+        return `
+          <button type="button" onclick="goToHero(${i})" aria-label="Tampilkan sorotan ${i + 1}" class="w-9 sm:w-12 h-9 flex items-center cursor-pointer">
+            <span class="block w-full h-[3px] rounded-full transition-colors ${active ? 'bg-gold-400' : 'bg-white/35 hover:bg-white/60'}"></span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function goToHero(idx) {
+      currentHeroIdx = (idx + 4) % 4;
+      renderHeroControls();
+      startHeroAutoPlay();
+    }
+
+    function stepHero(delta) {
+      goToHero(currentHeroIdx + delta);
+    }
+
+    function startHeroAutoPlay() {
+      clearInterval(heroTimer);
+      heroTimer = setInterval(() => {
+        currentHeroIdx = (currentHeroIdx + 1) % 4;
+        renderHeroControls();
+      }, 6000);
+    }
+
+    // Dukungan Gestur Swipe untuk HP di Hero Carousel
+    function initHeroSwipe() {
+      const heroSection = document.getElementById('beranda');
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      heroSection.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      heroSection.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 45) {
+          stepHero(diff > 0 ? 1 : -1);
+        }
+      }, { passive: true });
+
+      heroSection.addEventListener('mouseenter', () => clearInterval(heroTimer));
+      heroSection.addEventListener('mouseleave', () => startHeroAutoPlay());
+    }
+
+    /* ---------------------------------------------------------------------
+       D. STRUKTUR & TUPOKSI (AKD INTERAKTIF)
+       --------------------------------------------------------------------- */
+    function renderUnitNavigation() {
+      const desktopNav = document.getElementById('desktopUnitNav');
+      const mobileSelect = document.getElementById('mobileUnitSelect');
+      const mobilePills = document.getElementById('mobileUnitPills');
+
+      // 1. Desktop Sidebar
+      let desktopHtml = '';
+      let selectHtml = '';
+      let pillsHtml = '';
+
+      UNIT_GROUPS.forEach((group, gIdx) => {
+        desktopHtml += `<span class="${gIdx > 0 ? 'mt-3' : ''} px-3 pt-2 pb-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-ink-500">${group.label}</span>`;
+        selectHtml += `<optgroup label="${group.label}">`;
+
+        group.ids.forEach((id) => {
+          const u = UNITS[id];
+          const active = id === selectedUnitId;
+          desktopHtml += `
+            <button type="button" onclick="selectUnit('${id}')" aria-pressed="${active}" class="min-h-[42px] px-3 rounded-lg text-left text-[14px] flex items-center gap-2.5 transition-colors cursor-pointer ${active ? 'bg-maroon-50 text-maroon-700 font-bold' : 'text-ink-700 hover:bg-cream-50 font-medium'}">
+              <span class="w-1.5 h-1.5 rounded-full shrink-0 ${active ? 'bg-maroon-700' : 'bg-cream-400'}"></span>
+              <span class="truncate">${u.title}</span>
+            </button>
+          `;
+
+          selectHtml += `<option value="${id}" ${active ? 'selected' : ''}>${u.title}</option>`;
+
+          pillsHtml += `
+            <button type="button" onclick="selectUnit('${id}')" class="shrink-0 px-3.5 py-2 rounded-full text-xs font-bold border transition-colors cursor-pointer ${active ? 'bg-maroon-700 text-white border-maroon-700' : 'bg-white text-ink-700 border-cream-300'}">
+              ${u.title.split(' · ')[0]}
+            </button>
+          `;
+        });
+
+        selectHtml += `</optgroup>`;
+      });
+
+      desktopNav.innerHTML = desktopHtml;
+      mobileSelect.innerHTML = selectHtml;
+      mobilePills.innerHTML = pillsHtml;
+    }
+
+    function renderUnitDetail() {
+      const panel = document.getElementById('unitDetailPanel');
+      const u = UNITS[selectedUnitId];
+      if (!u) return;
+
+      const itemsHtml = u.items.map((item, idx) => `
+        <li class="flex items-start gap-3">
+          <span class="w-6 h-6 rounded-full bg-maroon-50 text-maroon-700 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">${idx + 1}</span>
+          <span class="text-[15px] text-ink-900 leading-relaxed">${item}</span>
+        </li>
+      `).join('');
+
+      const metaHtml = u.meta.map((m) => `
+        <div class="p-3.5 rounded-lg bg-cream-50 border border-cream-200">
+          <dt class="text-xs font-semibold uppercase tracking-wider text-ink-500">${m.k}</dt>
+          <dd class="mt-1 text-sm font-bold text-ink-900">${m.v}</dd>
+        </div>
+      `).join('');
+
+      panel.innerHTML = `
+        <div class="flex flex-col gap-6">
+          <div class="pb-5 border-b border-cream-200 flex flex-col gap-2">
+            <span class="text-xs font-extrabold uppercase tracking-[0.14em] text-gold-700">${u.category}</span>
+            <h3 class="font-serif font-medium text-2xl sm:text-[34px] leading-tight text-ink-900">${u.title}</h3>
+            <p class="text-[15.5px] text-ink-700">${u.summary}</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+            <div class="md:col-span-7">
+              <h4 class="text-xs font-extrabold uppercase tracking-[0.12em] text-ink-500 mb-3.5">${u.listTitle}</h4>
+              <ol class="flex flex-col gap-3">${itemsHtml}</ol>
+            </div>
+            <dl class="md:col-span-5 flex flex-col gap-3">
+              ${metaHtml}
+            </dl>
+          </div>
+        </div>
+      `;
+    }
+
+    function selectUnit(id) {
+      if (!UNITS[id]) return;
+      selectedUnitId = id;
+      renderUnitNavigation();
+      renderUnitDetail();
+    }
+
+    function jumpToUnitFromBagan(id) {
+      closeModal('baganModal');
+      selectUnit(id);
+      document.getElementById('struktur').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /* ---------------------------------------------------------------------
+       E. LEGISLASI (MATRIKS KEORGANISASIAN / FILTER INTERAKTIF)
+       --------------------------------------------------------------------- */
+    function getStatusBadgeClass(status) {
+      if (status === 'Berlaku') return 'bg-emerald-50 text-emerald-800 border-emerald-200';
+      if (status === 'Dibahas') return 'bg-amber-50 text-amber-800 border-amber-200';
+      return 'bg-cream-200 text-ink-700 border-cream-300';
+    }
+
+    function buildProgressBars(step) {
+      return Array.from({ length: 5 }, (_, i) => `
+        <span class="h-1.5 rounded-full ${i < step ? 'bg-maroon-700' : 'bg-cream-300'}"></span>
+      `).join('');
+    }
+
+    function renderLegislasiFilters() {
+      const container = document.getElementById('legislasiFilters');
+      const statuses = ['Semua', 'Berlaku', 'Dibahas', 'Terjadwal'];
+      container.innerHTML = statuses.map((st) => {
+        const count = st === 'Semua'
+          ? LEGISLASI_DATA.length
+          : LEGISLASI_DATA.filter((d) => d.status === st).length;
+        const active = currentLegislasiFilter === st;
+        return `
+          <button type="button" role="tab" aria-selected="${active}" onclick="setLegislasiFilter('${st}')" class="shrink-0 px-4 py-2 rounded-lg text-sm font-bold border transition-colors cursor-pointer ${active ? 'bg-maroon-900 text-white border-maroon-900' : 'bg-cream-50 text-ink-700 border-cream-300 hover:border-maroon-700'}">
+            ${st} <span class="ml-1 text-xs opacity-75">(${count})</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderLegislasi() {
+      renderLegislasiFilters();
+      const tbody = document.getElementById('legislasiTableBody');
+      const mobileContainer = document.getElementById('legislasiMobileCards');
+
+      const filtered = LEGISLASI_DATA
+        .map((item, originalIndex) => ({ ...item, originalIndex }))
+        .filter((item) => currentLegislasiFilter === 'Semua' || item.status === currentLegislasiFilter);
+
+      tbody.innerHTML = filtered.map((item) => `
+        <tr class="hover:bg-cream-50/70 transition-colors">
+          <td class="py-5 px-5">
+            <div class="font-bold text-ink-900">${item.title}</div>
+            <div class="text-xs text-ink-500 mt-0.5">${item.subtitle}</div>
+          </td>
+          <td class="py-5 px-5">
+            <div class="grid grid-cols-5 gap-1.5">${buildProgressBars(item.stageStep)}</div>
+            <div class="text-xs text-ink-700 mt-2 font-medium">Tahap ${item.stageStep}/5 · ${item.stageLabel}</div>
+          </td>
+          <td class="py-5 px-5">
+            <span class="inline-block px-2.5 py-1 rounded-md border text-xs font-bold ${getStatusBadgeClass(item.status)}">${item.status}</span>
+          </td>
+          <td class="py-5 px-5 text-right">
+            <button type="button" onclick="openLegislasiDetail(${item.originalIndex})" class="px-3.5 py-2 rounded-lg border border-cream-300 hover:border-maroon-700 hover:text-maroon-700 bg-white text-xs font-bold text-ink-900 transition-colors cursor-pointer">
+              ${item.actionLabel}
+            </button>
+          </td>
+        </tr>
+      `).join('');
+
+      mobileContainer.innerHTML = filtered.map((item) => `
+        <div class="p-4 flex flex-col gap-3">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <h4 class="font-bold text-ink-900 text-[15px] leading-snug">${item.title}</h4>
+              <p class="text-xs text-ink-500 mt-0.5">${item.subtitle}</p>
+            </div>
+            <span class="shrink-0 px-2.5 py-1 rounded-md border text-[11px] font-bold ${getStatusBadgeClass(item.status)}">${item.status}</span>
+          </div>
+          <div>
+            <div class="grid grid-cols-5 gap-1.5">${buildProgressBars(item.stageStep)}</div>
+            <div class="text-xs text-ink-700 mt-1.5">Tahap ${item.stageStep}/5 · ${item.stageLabel}</div>
+          </div>
+          <button type="button" onclick="openLegislasiDetail(${item.originalIndex})" class="self-start px-3.5 py-2 rounded-lg bg-maroon-50 text-maroon-700 text-xs font-bold cursor-pointer">
+            ${item.actionLabel} →
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function setLegislasiFilter(status) {
+      currentLegislasiFilter = status;
+      renderLegislasi();
+    }
+
+    function openLegislasiDetail(index) {
+      const item = LEGISLASI_DATA[index];
+      if (!item) return;
+
+      const stages = ['Matriks Keorganisasian', 'Penyusunan DIM', 'RDP Tingkat I', 'Tim Perumus', 'Sidang Pengesahan Tingkat II'];
+      const timelineHtml = stages.map((st, idx) => {
+        const done = idx + 1 <= item.stageStep;
+        return `
+          <li class="flex items-center gap-3">
+            <span class="w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center shrink-0 ${done ? 'bg-maroon-700 text-white' : 'bg-cream-200 text-ink-500'}">${done ? '✓' : idx + 1}</span>
+            <span class="text-sm ${done ? 'font-bold text-ink-900' : 'text-ink-500'}">${st}</span>
+          </li>
+        `;
+      }).join('');
+
+      document.getElementById('detailModalTag').textContent = `Legislasi · Status: ${item.status}`;
+      document.getElementById('detailModalTitle').textContent = item.title;
+      document.getElementById('detailModalBody').innerHTML = `
+        <div class="p-4 rounded-xl bg-cream-50 border border-cream-200 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+          <div><span class="text-xs text-ink-500 block">Nomor / Keterangan</span><strong>${item.subtitle}</strong></div>
+          <div><span class="text-xs text-ink-500 block">Pemegang Berkas</span><strong>${item.holder}</strong></div>
+        </div>
+        <p>${item.summary}</p>
+        <div>
+          <h4 class="text-xs font-extrabold uppercase tracking-wider text-ink-500 mb-3">Progres Tahapan Legislasi (${item.stageStep}/5)</h4>
+          <ol class="flex flex-col gap-2.5">${timelineHtml}</ol>
+        </div>
+        <div class="pt-3 border-t border-cream-200 flex flex-wrap gap-3">
+          ${item.hasFile
+            ? `<button type="button" onclick="downloadSimulatedDoc('${item.title}')" class="min-h-[44px] px-5 rounded-lg bg-maroon-700 hover:bg-maroon-900 text-white font-bold text-sm cursor-pointer">Unduh Ringkasan Naskah (.txt)</button>`
+            : `<span class="text-xs text-ink-500 py-2">Naskah draf akan diunggah setelah memasuki tahap penyusunan DIM.</span>`
+          }
+          <button type="button" onclick="closeModal('detailModal')" class="min-h-[44px] px-5 rounded-lg border border-cream-400 text-ink-900 font-bold text-sm cursor-pointer">Tutup</button>
+        </div>
+      `;
+      openModal('detailModal');
+    }
+
+    /* ---------------------------------------------------------------------
+       F. ASPIRASI (PELACAKAN TIKET & FORMULIR ASPIRASI BARU)
+       --------------------------------------------------------------------- */
+    function updateAspirasiStats() {
+      const masuk = aspirasiList.length;
+      const tuntas = aspirasiList.filter((a) => a.stage >= 4).length;
+      const diproses = masuk - tuntas;
+
+      document.getElementById('statMasuk').textContent = masuk;
+      document.getElementById('statDiproses').textContent = diproses;
+      document.getElementById('statTuntas').textContent = tuntas;
+      document.getElementById('profilTuntasCount').textContent = tuntas;
+    }
+
+    function renderTicketResult(ticket) {
+      const box = document.getElementById('ticketResult');
+      box.classList.remove('hidden');
+
+      if (!ticket) {
+        box.innerHTML = `
+          <div class="flex items-start gap-3 text-maroon-700">
+            <span class="font-bold text-lg leading-none">!</span>
+            <div>
+              <strong class="block text-sm">Nomor tiket tidak ditemukan</strong>
+              <p class="text-xs text-ink-700 mt-1">Pastikan format tiket benar, misalnya <span class="font-mono font-bold">ASP-2026-0001</span>.</p>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const steps = ['Diterima', 'Dipilah', 'Ditindaklanjuti', 'Tuntas'];
+      const stepsHtml = steps.map((label, idx) => {
+        const active = idx + 1 <= ticket.stage;
+        return `
+          <div class="flex flex-col items-center text-center gap-1.5">
+            <div class="w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center ${active ? 'bg-maroon-700 text-white' : 'bg-cream-300 text-ink-500'}">${active ? '✓' : idx + 1}</div>
+            <span class="text-[11px] leading-tight ${active ? 'font-bold text-ink-900' : 'text-ink-500'}">${label}</span>
+          </div>
+        `;
+      }).join('');
+
+      box.innerHTML = `
+        <div class="flex flex-col gap-3.5">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-cream-300">
+            <div>
+              <span class="font-mono text-xs font-extrabold text-maroon-700">${ticket.id}</span>
+              <h4 class="font-bold text-ink-900 text-sm sm:text-[15px] mt-0.5">${ticket.judul}</h4>
+            </div>
+            <span class="px-2.5 py-1 rounded-full text-xs font-bold ${ticket.stage >= 4 ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${ticket.statusText}</span>
+          </div>
+
+          <div class="grid grid-cols-4 gap-2 py-1">${stepsHtml}</div>
+
+          <div class="text-xs text-ink-700 bg-white p-3 rounded-lg border border-cream-200 flex flex-col gap-1">
+            <div><strong class="text-ink-900">Tujuan:</strong> ${ticket.kategori} · <span class="text-ink-500">${ticket.tanggal}</span></div>
+            <div class="mt-1"><strong class="text-ink-900">Catatan terkini:</strong> ${ticket.catatan}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleTrackTicket(e) {
+      e.preventDefault();
+      const raw = document.getElementById('ticketInput').value.trim().toUpperCase();
+      if (!raw) {
+        showToast('Masukkan nomor tiket terlebih dahulu');
+        return;
+      }
+      const found = aspirasiList.find((item) => item.id.toUpperCase() === raw);
+      renderTicketResult(found || null);
+    }
+
+    function quickTrack(code) {
+      document.getElementById('ticketInput').value = code;
+      const found = aspirasiList.find((item) => item.id.toUpperCase() === code.toUpperCase());
+      renderTicketResult(found || null);
+    }
+
+    function toggleAnonimField() {
+      const isAnonim = document.getElementById('aspAnonim').checked;
+      const namaInput = document.getElementById('aspNama');
+      if (isAnonim) {
+        namaInput.value = 'Anonim';
+        namaInput.readOnly = true;
+        namaInput.classList.add('bg-cream-100', 'text-ink-500');
+      } else {
+        namaInput.value = '';
+        namaInput.readOnly = false;
+        namaInput.classList.remove('bg-cream-100', 'text-ink-500');
+      }
+    }
+
+    function submitAspirasi(e) {
+      e.preventDefault();
+      const isAnonim = document.getElementById('aspAnonim').checked;
+      const nama = isAnonim ? 'Anonim' : document.getElementById('aspNama').value.trim();
+      const fakultas = document.getElementById('aspFakultas').value;
+      const kategori = document.getElementById('aspKategori').value;
+      const judul = document.getElementById('aspJudul').value.trim();
+      const isi = document.getElementById('aspIsi').value.trim();
+
+      const nextNumber = String(aspirasiList.length + 1).padStart(4, '0');
+      const newId = `ASP-2026-${nextNumber}`;
+      const today = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+
+      const newEntry = {
+        id: newId,
+        nama: `${nama} (${fakultas})`,
+        kategori,
+        judul,
+        isi,
+        tanggal: today,
+        stage: 1,
+        statusText: 'Diterima',
+        catatan: 'Aspirasi baru berhasil masuk ke sistem Badan Aspirasi dan menunggu verifikasi serta pemilahan maksimal 3 hari kerja.'
+      };
+
+      aspirasiList.unshift(newEntry);
+      saveAspirasiData();
+      updateAspirasiStats();
+      lastCreatedTicketId = newId;
+
+      document.getElementById('generatedTicketCode').textContent = newId;
+      document.getElementById('aspirasiForm').classList.add('hidden');
+      document.getElementById('aspirasiSuccess').classList.remove('hidden');
+      document.getElementById('aspirasiSuccess').classList.add('flex');
+      showToast(`Tiket ${newId} berhasil diterbitkan!`);
+    }
+
+    function copyGeneratedTicket() {
+      if (!lastCreatedTicketId) return;
+      // Menggunakan document.execCommand('copy') agar kompatibel penuh di iFrame & HP
+      try {
+        const temp = document.createElement('textarea');
+        temp.value = lastCreatedTicketId;
+        temp.style.position = 'fixed';
+        temp.style.top = '-9999px';
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+        showToast(`Nomor tiket ${lastCreatedTicketId} disalin!`);
+      } catch (_) {
+        showToast('Silakan catat nomor tiket: ' + lastCreatedTicketId);
+      }
+    }
+
+    function trackNewlyCreatedTicket() {
+      const code = lastCreatedTicketId;
+      resetAspirasiModal();
+      document.getElementById('aspirasi').scrollIntoView({ behavior: 'smooth' });
+      quickTrack(code);
+    }
+
+    function resetAspirasiModal() {
+      document.getElementById('aspirasiForm').reset();
+      toggleAnonimField();
+      document.getElementById('aspirasiForm').classList.remove('hidden');
+      document.getElementById('aspirasiSuccess').classList.add('hidden');
+      document.getElementById('aspirasiSuccess').classList.remove('flex');
+      closeModal('aspirasiModal');
+    }
+
+    /* ---------------------------------------------------------------------
+       G. PUBLIKASI (BERITA & AGENDA)
+       --------------------------------------------------------------------- */
+    function openNewsModal(index) {
+      const news = NEWS_DATA[index];
+      if (!news) return;
+      document.getElementById('detailModalTag').textContent = `${news.category} · ${news.date}`;
+      document.getElementById('detailModalTitle').textContent = news.title;
+      document.getElementById('detailModalBody').innerHTML = `
+        <div class="text-xs font-semibold text-ink-500">Oleh: ${news.author}</div>
+        ${news.paragraphs.map((p) => `<p>${p}</p>`).join('')}
+        <div class="pt-3 border-t border-cream-200 flex justify-end">
+          <button type="button" onclick="closeModal('detailModal')" class="min-h-[42px] px-5 rounded-lg bg-maroon-900 text-white font-bold text-sm cursor-pointer">Tutup Berita</button>
+        </div>
+      `;
+      openModal('detailModal');
+    }
+
+    function openAgendaDetail(title, date, timePlace, desc) {
+      document.getElementById('detailModalTag').textContent = `Agenda Parlemen · ${date}`;
+      document.getElementById('detailModalTitle').textContent = title;
+      document.getElementById('detailModalBody').innerHTML = `
+        <div class="p-4 rounded-xl bg-cream-50 border border-cream-200 text-sm font-semibold text-maroon-900">
+          ${timePlace}
+        </div>
+        <p>${desc}</p>
+        <div class="pt-3 border-t border-cream-200 flex justify-end">
+          <button type="button" onclick="closeModal('detailModal')" class="min-h-[42px] px-5 rounded-lg bg-maroon-900 text-white font-bold text-sm cursor-pointer">Tutup</button>
+        </div>
+      `;
+      openModal('detailModal');
+    }
+
+    /* ---------------------------------------------------------------------
+       H. DOKUMEN (JDIH KM UNY) & PPID
+       --------------------------------------------------------------------- */
+    function renderDocFilters() {
+      const container = document.getElementById('docCategoryFilters');
+      const cats = ['Semua', 'PKM', 'RISALAH', 'LAPORAN'];
+      container.innerHTML = cats.map((cat) => {
+        const active = currentDocFilter === cat;
+        const label = cat === 'RISALAH' ? 'Risalah' : cat === 'LAPORAN' ? 'Laporan' : cat;
+        return `
+          <button type="button" onclick="setDocFilter('${cat}')" class="shrink-0 px-3.5 py-2 rounded-lg text-xs font-bold border transition-colors cursor-pointer ${active ? 'bg-maroon-900 text-white border-maroon-900' : 'bg-white text-ink-700 border-cream-300 hover:border-maroon-700'}">
+            ${label}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderDocuments() {
+      renderDocFilters();
+      const query = (document.getElementById('docSearchInput').value || '').trim().toLowerCase();
+      const container = document.getElementById('documentList');
+
+      const filtered = DOCUMENTS_DATA
+        .map((doc, idx) => ({ ...doc, idx }))
+        .filter((doc) => {
+          const matchCat = currentDocFilter === 'Semua' || doc.type === currentDocFilter;
+          const matchQuery = !query || doc.title.toLowerCase().includes(query) || doc.type.toLowerCase().includes(query);
+          return matchCat && matchQuery;
+        });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="p-8 text-center text-sm text-ink-500">Tidak ada dokumen yang cocok dengan pencarian Anda.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map((doc) => `
+        <div class="p-4 sm:px-5 flex flex-wrap items-center justify-between gap-3 hover:bg-cream-50 transition-colors">
+          <div class="flex items-start sm:items-center gap-3.5 min-w-0 flex-1">
+            <span class="w-16 shrink-0 text-center py-1 rounded bg-maroon-50 text-maroon-700 text-[11px] font-extrabold tracking-wider">${doc.type}</span>
+            <div class="min-w-0">
+              <button type="button" onclick="openDocPreview(${doc.idx})" class="text-left font-bold text-[15px] text-ink-900 hover:text-maroon-700 transition-colors cursor-pointer">
+                ${doc.title}
+              </button>
+              <div class="text-xs text-ink-500 mt-0.5">Tahun ${doc.year} · ${doc.size}</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button type="button" onclick="openDocPreview(${doc.idx})" class="px-3 py-2 rounded-lg border border-cream-300 hover:border-maroon-700 text-xs font-bold text-ink-900 cursor-pointer">Pratinjau</button>
+            <button type="button" onclick="downloadSimulatedDoc('${doc.title}')" class="px-3 py-2 rounded-lg bg-maroon-700 hover:bg-maroon-900 text-xs font-bold text-white cursor-pointer">Unduh</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function setDocFilter(cat) {
+      currentDocFilter = cat;
+      renderDocuments();
+    }
+
+    function openDocPreview(idx) {
+      const doc = DOCUMENTS_DATA[idx];
+      if (!doc) return;
+      document.getElementById('detailModalTag').textContent = `JDIH KM UNY · ${doc.type} (${doc.year})`;
+      document.getElementById('detailModalTitle').textContent = doc.title;
+      document.getElementById('detailModalBody').innerHTML = `
+        <div class="p-4 rounded-xl bg-cream-50 border border-cream-200 text-sm flex flex-wrap gap-4 justify-between">
+          <div><span class="text-xs text-ink-500 block">Kategori</span><strong>${doc.type}</strong></div>
+          <div><span class="text-xs text-ink-500 block">Tahun Penetapan</span><strong>${doc.year}</strong></div>
+          <div><span class="text-xs text-ink-500 block">Format Arsip</span><strong>${doc.size}</strong></div>
+        </div>
+        <div>
+          <h4 class="text-xs font-extrabold uppercase tracking-wider text-ink-500 mb-1.5">Abstrak / Ringkasan Dokumen</h4>
+          <p>${doc.summary}</p>
+        </div>
+        <div class="pt-3 border-t border-cream-200 flex flex-wrap gap-3">
+          <button type="button" onclick="downloadSimulatedDoc('${doc.title}')" class="min-h-[44px] px-5 rounded-lg bg-maroon-700 hover:bg-maroon-900 text-white font-bold text-sm cursor-pointer">Unduh Salinan Ringkas</button>
+          <button type="button" onclick="closeModal('detailModal')" class="min-h-[44px] px-5 rounded-lg border border-cream-400 text-ink-900 font-bold text-sm cursor-pointer">Tutup</button>
+        </div>
+      `;
+      openModal('detailModal');
+    }
+
+    function downloadSimulatedDoc(docTitle) {
+      try {
+        const content = `PORTAL RESMI JDIH DPM KM UNY\n========================================\nDokumen: ${docTitle}\nDiunduh pada: ${new Date().toLocaleString('id-ID')}\n\nCatatan: Ini adalah berkas salinan ringkas dari portal demo.\nGanti tautan unduhan dengan file PDF resmi DPM KM UNY saat publikasi.`;
+        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = docTitle.toLowerCase().replace(/[^a-z0-9]+/g, '_') + '.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        showToast('Mengunduh dokumen: ' + docTitle);
+      } catch (_) {
+        showToast('Dokumen siap diakses');
+      }
+    }
+
+    function submitPpid(e) {
+      e.preventDefault();
+      const rand = Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('ppidRegCode').textContent = `PPID-2026-${rand}`;
+      document.getElementById('ppidForm').classList.add('hidden');
+      document.getElementById('ppidSuccess').classList.remove('hidden');
+      document.getElementById('ppidSuccess').classList.add('flex');
+      showToast('Permohonan informasi publik terkirim!');
+    }
+
+    function resetPpidModal() {
+      document.getElementById('ppidForm').reset();
+      document.getElementById('ppidForm').classList.remove('hidden');
+      document.getElementById('ppidSuccess').classList.add('hidden');
+      document.getElementById('ppidSuccess').classList.remove('flex');
+      closeModal('ppidModal');
+    }
+
+    function submitLoginDemo(e) {
+      e.preventDefault();
+      const nim = document.getElementById('loginNim').value.trim();
+      closeModal('loginModal');
+      e.target.reset();
+      showToast(`Mode Demo: Selamat datang pengurus (${nim})`);
+    }
+
+    /* ---------------------------------------------------------------------
+       I. PENCARIAN INSTAN GLOBAL (PKM, UNIT STRUKTUR, BERITA, DOKUMEN)
+       --------------------------------------------------------------------- */
+    function openSearchModal() {
+      openModal('searchModal');
+      const input = document.getElementById('globalSearchInput');
+      input.value = '';
+      runGlobalSearch();
+      setTimeout(() => input.focus(), 60);
+    }
+
+    function runGlobalSearch() {
+      const q = (document.getElementById('globalSearchInput').value || '').trim().toLowerCase();
+      const container = document.getElementById('globalSearchResults');
+      const results = [];
+
+      // Cari di Unit Struktur
+      Object.entries(UNITS).forEach(([id, u]) => {
+        if (!q || u.title.toLowerCase().includes(q) || u.summary.toLowerCase().includes(q)) {
+          results.push({
+            tag: 'Struktur',
+            title: u.title,
+            sub: u.summary,
+            action: () => { closeModal('searchModal'); selectUnit(id); document.getElementById('struktur').scrollIntoView({ behavior: 'smooth' }); }
+          });
+        }
+      });
+
+      // Cari di Legislasi
+      LEGISLASI_DATA.forEach((leg, idx) => {
+        if (!q || leg.title.toLowerCase().includes(q) || leg.subtitle.toLowerCase().includes(q)) {
+          results.push({
+            tag: 'Legislasi',
+            title: leg.title,
+            sub: `${leg.status} · ${leg.stageLabel}`,
+            action: () => { closeModal('searchModal'); openLegislasiDetail(idx); }
+          });
+        }
+      });
+
+      // Cari di Dokumen JDIH
+      DOCUMENTS_DATA.forEach((doc, idx) => {
+        if (!q || doc.title.toLowerCase().includes(q) || doc.type.toLowerCase().includes(q)) {
+          results.push({
+            tag: 'JDIH · ' + doc.type,
+            title: doc.title,
+            sub: `Tahun ${doc.year} · ${doc.size}`,
+            action: () => { closeModal('searchModal'); openDocPreview(idx); }
+          });
+        }
+      });
+
+      const shown = results.slice(0, 8);
+      if (shown.length === 0) {
+        container.innerHTML = `<div class="py-8 text-center text-sm text-ink-500">Tidak ditemukan hasil untuk "<strong>${q}</strong>".</div>`;
+        return;
+      }
+
+      container.innerHTML = '';
+      shown.forEach((r) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'w-full py-3 px-2 text-left hover:bg-cream-50 rounded-lg flex flex-col gap-0.5 transition-colors cursor-pointer';
+        btn.innerHTML = `
+          <span class="text-[11px] font-extrabold uppercase tracking-wider text-gold-700">${r.tag}</span>
+          <span class="text-sm font-bold text-ink-900">${r.title}</span>
+          <span class="text-xs text-ink-500 truncate">${r.sub}</span>
+        `;
+        btn.onclick = r.action;
+        container.appendChild(btn);
+      });
+    }
+
+    /* ---------------------------------------------------------------------
+       J. UTILITAS MODAL, MENU MOBILE, & TOAST
+       --------------------------------------------------------------------- */
+    function openModal(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // Tutup modal jika klik backdrop atau tekan Escape
+    document.querySelectorAll('[role="dialog"]').forEach((modal) => {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal(modal.id);
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('[role="dialog"]:not(.hidden)').forEach((m) => closeModal(m.id));
+      }
+    });
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const btn = document.getElementById('mobileMenuBtn');
+      const open = menu.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!open));
+      document.getElementById('hamburgerIcon').classList.toggle('hidden', !open);
+      document.getElementById('closeMenuIcon').classList.toggle('hidden', open);
+    }
+
+    function closeMobileMenu() {
+      document.getElementById('mobileMenu').classList.add('hidden');
+      document.getElementById('mobileMenuBtn').setAttribute('aria-expanded', 'false');
+      document.getElementById('hamburgerIcon').classList.remove('hidden');
+      document.getElementById('closeMenuIcon').classList.add('hidden');
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 2800);
+    }
+
+    /* ---------------------------------------------------------------------
+       K. INISIALISASI SAAT HALAMAN DIMUAT
+       --------------------------------------------------------------------- */
+    window.addEventListener('DOMContentLoaded', () => {
+      renderHeroControls();
+      startHeroAutoPlay();
+      initHeroSwipe();
+      renderUnitNavigation();
+      renderUnitDetail();
+      renderLegislasi();
+      updateAspirasiStats();
+      renderDocuments();
+    });
+  </script>
+</body>
+</html>
